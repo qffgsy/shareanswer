@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>电工与电子技术｜交互式试卷详解</title>
+<style>
+:root{--ink:#172b38;--muted:#637780;--line:#dce6e4;--paper:#ffffff;--bg:#f3f7f5;--accent:#116c64;--light:#e7f3ef;--warm:#d18143;--navy:#112f3b}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:'Microsoft YaHei','PingFang SC',system-ui,sans-serif;line-height:1.75}header.hero{background:var(--navy);color:#fff;padding:48px max(24px,calc((100vw - 1100px)/2)) 45px}.eyebrow{font-size:13px;letter-spacing:.18em;color:#93d2c1;font-weight:700}h1{font-size:clamp(27px,4vw,43px);line-height:1.3;margin:12px 0}header p{color:#c5d9d8;margin:0;max-width:700px}.layout{max-width:1100px;margin:0 auto;padding:22px 24px 80px}.nav{display:flex;gap:9px;flex-wrap:wrap;margin:0 0 24px}.nav a{color:var(--accent);background:#fff;border:1px solid var(--line);border-radius:40px;padding:7px 15px;text-decoration:none;font-size:14px;font-weight:600}.nav a:hover{background:var(--light)}.section-heading{margin:40px 0 14px}.section-heading h2{font-size:25px;margin:0}.section-heading p{margin:2px 0;color:var(--muted)}section[id]{scroll-margin-top:20px}.card,.question,.problem,.quiz-card,.exam-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px;margin:15px 0;box-shadow:0 4px 20px #103f3210}h2,h3,h4{line-height:1.4}h3{font-size:19px;margin:0 0 12px}h4{margin:16px 0 6px}p{margin:8px 0}button{font:inherit;border:1px solid #b4d2c9;background:var(--light);border-radius:8px;color:#16584f;padding:8px 14px;cursor:pointer}button:hover{background:#d3ebe3}input,select{font:inherit;border:1px solid #bbcfc9;border-radius:7px;padding:7px 9px;max-width:100%;background:#fff;color:var(--ink)}input[type=number]{width:110px}input[type=radio],input[type=checkbox]{width:auto;accent-color:var(--accent)}label{color:var(--ink)}.controls,.inputs,.input-grid{display:flex;flex-wrap:wrap;gap:12px;margin:14px 0}.controls label,.inputs label,.input-grid label{display:flex;flex-direction:column;gap:3px;font-size:14px;color:var(--muted)}.result,.answer,.explanation,.feedback,.output{background:#eff8f4;border-left:3px solid #34a484;border-radius:5px;padding:12px 14px;margin-top:12px;overflow-wrap:anywhere}.hint,.note,.muted,small{color:var(--muted)}.notice{background:#fff6e8;border-left:3px solid #d8994f;padding:12px 15px;border-radius:4px;margin:14px 0}.diagram,svg{max-width:100%;height:auto}svg text{font-family:'Microsoft YaHei',sans-serif}details{margin:12px 0}summary{cursor:pointer;color:#176c61;font-weight:600}table{width:100%;border-collapse:collapse;margin:12px 0}th,td{text-align:left;border-bottom:1px solid var(--line);padding:8px}.graphic{background:#fff;border:1px solid var(--line);border-radius:12px;margin:14px 0;padding:12px}.graphic img{width:100%;max-width:800px;display:block;margin:auto}.formula{font-family:Consolas,'Microsoft YaHei',sans-serif;background:#f5f8f7;padding:9px 12px;border-radius:7px;overflow-wrap:anywhere}.topline{font-size:13px;color:var(--accent);font-weight:700;letter-spacing:.09em}.badge{display:inline-block;background:var(--light);color:var(--accent);padding:2px 9px;border-radius:12px;font-size:12px}.footer{color:var(--muted);text-align:center;padding:22px}.calc-area{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:700px){.layout{padding:16px 14px 50px}header.hero{padding:35px 20px}.card,.question,.problem,.quiz-card,.exam-card{padding:16px}.calc-area{grid-template-columns:1fr}button{min-height:42px}body{font-size:15px}}
+@media(min-width:761px){.quiz-grid>.quiz-card:has(.qdiagram){grid-column:span 2}}
+</style><style>
+.worked-solution{margin:24px 0 4px;padding:0;border:1px solid #d0e7dd;border-radius:13px;background:#fbfefc;color:#243e3b;overflow:hidden}
+.worked-solution summary{padding:14px 18px;background:#e9f5ef;color:#126c55;cursor:pointer;font-weight:700;font-size:16px;line-height:1.5}
+.worked-content{padding:14px 19px 19px;line-height:1.85;font-size:15px}
+.worked-content .fixed-note{font-size:13px;color:#637d75;margin:0 0 14px}
+.worked-content h4{font-size:15px;color:#176e5b;margin:16px 0 5px}
+.worked-content p{margin:6px 0}.worked-content ol,.worked-content ul{padding-left:1.5em;margin:8px 0}.worked-content li{margin:8px 0}.worked-content .math,.worked-content .equation{display:block;background:#f0f6f3;padding:8px 12px;border-radius:6px;margin:8px 0;overflow-wrap:anywhere;font-family:Consolas,'Microsoft YaHei',sans-serif}.worked-content strong{color:#116b54}.worked-content .caution{padding:10px 13px;background:#fff6e8;border-left:3px solid #d8994f;color:#59462c}
+@media(max-width:700px){.worked-content{padding:12px 14px 15px}.worked-solution summary{padding:12px 14px}}
+</style><style>.winding-orig{max-height:380px!important;background:#fff}.winding-caption{font-size:13px!important;color:#566f77;margin:8px 0 12px!important}.winding-connection{background:#f5faf8;border:1px solid #d4e6df;border-radius:10px;padding:10px;margin:10px 0}.winding-connection svg{display:block;width:100%;height:auto;max-height:270px}.winding-connection .wire-note{margin:5px 0 0;font-size:13px;color:#496a60}</style><link rel="stylesheet" href="integration.css"><script src="../catalog.js" defer></script><script src="integration.js" defer></script></head><body>
+<header class="hero"><div class="eyebrow">ELECTRICAL ENGINEERING · EXAM WALKTHROUGH</div><h1>电工与电子技术<br>交互式试卷详解</h1><p>先自己作答，再查看解析；调整电路参数，观察结果与计算过程。题目参数默认与试卷一致。</p></header>
+<main class="layout"><nav class="nav" aria-label="试卷导航"><a href="#fill">填空题</a><a href="#choice">选择题</a><a href="#short">简答题</a><a href="#calculation">计算题</a></nav>
+<div id="quiz-mount"></div><div id="motor-mount"></div>
+<section id="calculation"><div class="section-heading"><div class="topline">PART 04</div><h2>计算题</h2><p>默认显示原题结果；输入框可用于检验其他参数。</p></div>
+<article class="card" id="calc1"><h3>1. 闭合铁芯线圈的电流</h3><p>线圈匝数 300 匝，磁感应强度 B = 0.9 T，磁路平均长度 45 cm。铁芯为铸铁，求线圈电流。</p><div class="notice">先在下方原题磁化曲线中找到铸铁 a，按<strong>上方横坐标</strong>读数。B = 0.9 T 时 H 约为 9 × 10³ A/m；读图存在误差，可在输入框中调整。</div><div class="graphic"><img src="magnetization.jpg" alt="题目中的铸铁、铸钢和硅钢片磁化曲线；铸铁使用上方的磁场强度刻度"></div><div class="controls"><label>读图得到 H（A/m）<input id="mag-h" type="number" min="0" value="9000" step="100"></label><label>磁路长度 l（cm）<input id="mag-l" type="number" min="0" value="45" step="1"></label><label>线圈匝数 N<input id="mag-n" type="number" min="1" value="300" step="1"></label></div><div class="result" id="mag-out" aria-live="polite"></div><p class="hint">说明：调整 H 是模拟不同的读图值；B 改变后，应先从材料磁化曲线重新读取对应 H。</p></article>
+<div id="circuits-mount"></div><div id="motor-calc-mount"></div></section>
+<div class="footer">根据试卷照片整理 · 磁化曲线为近似读数</div></main>
+<script>(function () {
+  'use strict';
+
+  const fills = [
+    { q: '与交流热效应相等的直流定义为交流电的____。', slots: [['有效值', '均方根值']], why: '交流电的有效值以相同电阻、相同时间内产生的热量与某一直流相等来定义。' },
+    { q: '容抗与频率和电容成____（填正比或反比）。因此，电容元件对高频电流所呈现的容抗很小，对直流可视为____（填短路或开路）。', slots: [['反比'], ['开路', '断路']], why: '容抗 Xc＝1/(2πfC)。在直流稳态下，理想电容相当于开路。' },
+    { q: '变压器空载时，铁芯中主磁通是由____的磁通产生的，与二次侧绕组无关。', slots: [['一次侧空载电流', '原边空载电流', '一次侧电流', '原边电流', '空载电流', '励磁电流', '原绕组电流']], why: '二次侧开路时没有二次电流，铁芯主磁通由一次侧空载电流的励磁作用建立。题干措辞略有重复。' },
+    { q: '三相电路中每相负载中的电流称为____；每根相线中的电流称为____。', slots: [['相电流'], ['线电流']], why: '相电流流经每相负载；线电流流经电源与负载之间的相线。' },
+    { q: '当电流流入（或流出）两个线圈时，若产生的磁通方向相同，则两个流入（或流出）端称为____。', slots: [['同名端', '同极性端']], why: '这是耦合线圈同名端的定义。' },
+    { q: '交流铁心线圈的功率损耗主要有____和____两种。', slots: [['铜耗', '铜损', '铜损耗', '铁耗', '铁损', '铁损耗'], ['铜耗', '铜损', '铜损耗', '铁耗', '铁损', '铁损耗']], distinct: true, why: '线圈电阻引起铜耗；交变磁通在铁心中引起铁耗。铁耗进一步分为磁滞损耗和涡流损耗。' },
+    { q: '三相异步电动机的转子转速____（填大于、小于或等于）同步转速。', slots: [['小于', '低于']], why: '正常电动机运行时转差率 s＞0，因而转子转速低于同步转速。' }
+  ];
+
+  const bulbSvg = `<svg class="qdiagram" viewBox="0 0 740 270" role="img" aria-label="三相星形电源通过 A、B、C 相线和中线连接星形灯组"><defs><marker id="qarr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8z" fill="#42566d"/></marker></defs><text x="35" y="28">三相电源（星形）</text><text x="495" y="28">灯组（星形）</text><path d="M130 135L130 60H555M130 135L82 200H555M130 135L178 235H555M130 135H555" fill="none" stroke="#42566d" stroke-width="3"/><path d="M555 60L555 96M555 118L555 135M555 135L555 157M555 180L555 200M555 135L600 185L555 235" fill="none" stroke="#42566d" stroke-width="3"/><circle cx="555" cy="107" r="12" fill="white" stroke="#42566d" stroke-width="3"/><path d="M548 100l14 14m0-14l-14 14" stroke="#42566d"/><circle cx="555" cy="169" r="12" fill="white" stroke="#42566d" stroke-width="3"/><path d="M548 162l14 14m0-14l-14 14" stroke="#42566d"/><circle cx="585" cy="202" r="12" fill="white" stroke="#42566d" stroke-width="3"/><path d="M578 195l14 14m0-14l-14 14" stroke="#42566d"/><g fill="white" stroke="#42566d" stroke-width="2.5"><circle cx="130" cy="90" r="13"/><circle cx="104" cy="170" r="13"/><circle cx="151" cy="179" r="13"/></g><g fill="none" stroke="#42566d" stroke-width="2"><path d="M122 90q4-7 8 0t8 0M96 170q4-7 8 0t8 0M143 179q4-7 8 0t8 0"/></g><circle cx="130" cy="135" r="4"/><circle cx="555" cy="135" r="4"/><text x="110" y="125">N</text><text x="564" y="132">N′</text><text x="340" y="50">A 相线</text><text x="340" y="126">中线</text><text x="340" y="190">B 相线</text><text x="340" y="256">C 相线</text><text x="578" y="111">R<tspan baseline-shift="sub">A</tspan></text><text x="578" y="173">R<tspan baseline-shift="sub">B</tspan></text><text x="605" y="209">R<tspan baseline-shift="sub">C</tspan></text><g class="qbreak-a"><path d="M255 51l15 18m-15 0l15-18" stroke="#d74b48" stroke-width="3"/></g><g class="qbreak-n"><path d="M255 126l15 18m-15 0l15-18" stroke="#d74b48" stroke-width="3"/></g><text x="195" y="93" fill="#b42f2b">红叉表示断线</text></svg>`;
+  const windingSvg = `<svg class="qdiagram winding-orig" viewBox="0 0 700 450" role="img" aria-labelledby="winding-title winding-desc" xmlns="http://www.w3.org/2000/svg">
+<title id="winding-title">试题原图：铁芯与上下两个独立绕组</title>
+<desc id="winding-desc">矩形闭合铁芯的左边柱上，上绕组的两个端子为 1 和 2，下绕组的两个端子为 3 和 4。两个绕组绕向相同；各端子尚未连接。</desc>
+<rect x="260" y="25" width="350" height="405" fill="none" stroke="#9bb5ba" stroke-width="5"/>
+<rect x="325" y="85" width="225" height="285" fill="none" stroke="#9bb5ba" stroke-width="5"/>
+<text x="570" y="238" fill="#66838a" font-size="17" text-anchor="middle">铁芯</text>
+<g fill="none" stroke="#203e4f" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M90 130 H325 C344 130 344 146 325 146 H260 C241 146 241 162 260 162 H325 C344 162 344 178 325 178 H260 C241 178 241 194 260 194 H325 C344 194 344 210 325 210 H260 V225 H90"/>
+<path d="M90 275 H325 C344 275 344 291 325 291 H260 C241 291 241 307 260 307 H325 C344 307 344 323 325 323 H260 C241 323 241 339 260 339 H325 C344 339 344 355 325 355 H260 V370 H90"/>
+<circle cx="90" cy="130" r="7" fill="#fff"/><circle cx="90" cy="225" r="7" fill="#fff"/><circle cx="90" cy="275" r="7" fill="#fff"/><circle cx="90" cy="370" r="7" fill="#fff"/>
+</g><g fill="#203e4f" font-size="25" font-weight="700"><text x="50" y="138">1</text><text x="50" y="233">2</text><text x="50" y="283">3</text><text x="50" y="378">4</text></g>
+<g fill="#536d73" font-size="17"><text x="360" y="170">上绕组：1—2</text><text x="360" y="315">下绕组：3—4</text></g></svg>
+<p class="winding-caption">按试卷原图重画：两个绕组分别绕在同一铁芯柱上，图中 1、2、3、4 均为未连接的独立端子；绕组与铁芯绝缘。</p>`;
+  const powerSvg = `<svg class="qdiagram" viewBox="0 0 700 250" role="img" aria-label="元件 a 电压 3 V 电流负 3 A，元件 b 电压负 2 V 电流负 2 A，电流参考方向均流入电压正端"><defs><marker id="qpowerarrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8z" fill="#344e68"/></marker></defs><g fill="none" stroke="#344e68" stroke-width="3"><path d="M100 55H240V85M240 155V185H100M400 55H540V85M540 155V185H400"/><rect x="225" y="85" width="30" height="70"/><rect x="525" y="85" width="30" height="70"/><path d="M130 35h80M430 35h80" marker-end="url(#qpowerarrow)"/></g><g fill="#20394f"><text x="145" y="26">−3 A</text><text x="445" y="26">−2 A</text><text x="95" y="83">＋</text><text x="95" y="181">−</text><text x="395" y="83">＋</text><text x="395" y="181">−</text><text x="95" y="135">3 V</text><text x="395" y="135">−2 V</text><text x="170" y="225">(a)</text><text x="470" y="225">(b)</text></g></svg>`;
+
+  const choices = [
+    { id:'c1', q:'假设各相中连接负载 R<sub>A</sub>、R<sub>B</sub> 和 R<sub>C</sub> 均为灯泡，且每相负载中都接有熔断器，如 A 相线和中线均断开，B 相、C 相能否正常工作？', fig:bulbSvg, options:['B 相正常工作，C 相不能正常工作','B 相不能正常工作，C 相正常工作','B、C 相均能正常工作','B、C 相均不能正常工作'], answer:3, why:'教材通常选 D。断线后 B、C 两灯串联接在线电压上。如果两灯相同，每灯分得线电压的一半，即正常相电压的约 0.866 倍，故都不能正常工作。严格说题目没有给出灯泡参数，仅凭题意不能排除某一灯恰好获得额定电压。' },
+    { id:'c2a', q:'如下图所示，变压器原一次侧有两个匝数相同的绕组，额定电压均为 110 V。当电源电压为 220 V 时，应联接（　）。', fig:windingSvg, options:['1-2','2-3','1-3','1-4'], answer:1, why:'选 B。两个 110 V 绕组要同向串联：连接 2、3，将 220 V 电源接在 1、4 之间。' },
+    { id:'c2b', q:'沿用上图，当电源电压为 110 V 时，应联接（　）。', options:['1-2，3-4','1-4，2-3','1-3，2-4','无连接方式可满足要求'], answer:2, why:'选 C。两个绕组同名端 1、3 相接，另一对端子 2、4 相接；将 110 V 电源接在这两组节点之间。' },
+    { id:'c3', q:'试判断下图中的电路元件是吸收或发出功率元件（　）。', fig:powerSvg, options:['a 为发出功率元件，b 为吸收功率元件','a 为吸收功率元件，b 为发出功率元件','a 和 b 均为发出功率元件','a 和 b 均为吸收功率元件'], answer:0, why:'选 A。采用电流流入电压正端的关联参考方向，p＝ui。元件 a：p＝3×(−3)＝−9 W，发出功率；元件 b：p＝(−2)×(−2)＝4 W，吸收功率。' },
+    { id:'c4', q:'提高功率因数的方法是（　）。', options:['并联电感','并联电阻','并联电容','串联电感'], answer:2, why:'常规答案 C。对于常见的感性负载，并联适当的电容可补偿感性无功功率，提高功率因数。原题未说明负载性质，容性负载不适用这一结论，过度补偿也可能使功率因数下降。' },
+    { id:'c5', q:'下列关于磁感应强度描述正确的是（　）。', options:['衡量物质的导磁能力','穿过垂直于磁场方向面积 A 中的磁力线总数','磁场计算所引用的量，可确定磁场与电流之间的关系','表示磁场内某点磁场强弱和方向的物理量'], answer:3, why:'选 D。磁感应强度 B 是表征磁场中某点磁场强弱和方向的矢量；A 对应磁导率，B 更接近磁通的描述。' },
+    { id:'c6', q:'磁性材料的磁性能不包括（　）。', options:['高导磁性','磁稳定性','磁滞性','磁饱和性'], answer:1, why:'按电工基础教材中常列举的铁磁材料基本特性，通常选 B：高导磁性、磁饱和性和磁滞性。严格而言，磁稳定性也可作为磁性材料的性能讨论，因此题干缺少限定，表述不够严谨。' },
+    { id:'c7', q:'三相异步电动机转子转动的原理为（　）。<br>① 闭合铜线圈产生感应电流　② 转子线圈受电磁力<br>③ 三相电流产生旋转磁场　④ 转子中铜线产生感应电动势', options:['③④①②','③①④②','④③①②','①③④②'], answer:0, why:'选 A。三相电流先建立旋转磁场，转子导体产生感应电动势，闭合回路产生电流，再受到电磁力和电磁转矩。' },
+    { id:'c8', q:'三相异步电动机的转速 n 愈高，则转子电流 I₂____，转子功率因素 cos φ₂____。（　）', options:['减小，减小','增大，增大','减小，增大','增大，减小'], answer:2, why:'选 C。电动运行时转速升高，转差率减小，转子感应电动势和电流减小，转子感抗减小、功率因数增大。' },
+    { id:'c9', q:'以下关于电动机铭牌的说法错误的是（　）。', options:['铭牌上所标的电压值是指电动机在额定运行时定子绕组上应加的线电压值。','铭牌上所标的电流值是指电动机在额定运行时定子绕组的线电流值。','铭牌上所标的功率值是指电动机在额定运行时轴上输出的机械功率值。','铭牌上所标的绝缘等级是按电动机绕组所用绝缘材料的绝缘能力来分级的。'], answer:3, why:'选 D。绝缘等级主要按绝缘系统允许的最高工作温度，即耐热能力分级；额定电压、额定电流通常指线电压和线电流，额定功率指轴上输出功率。' }
+  ];
+
+  function esc(x) { return String(x).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function norm(x) { return String(x).trim().replace(/[\s，,。；;、]/g, '').toLowerCase(); }
+  function fillCard(item, index) {
+    return `<article class="quiz-card" data-fill="${index}"><h3>第 ${index + 1} 题</h3><p>${esc(item.q)}</p><div class="quiz-fields">${item.slots.map((_, j) => `<label>第 ${j + 1} 空 <input type="text" autocomplete="off" aria-label="填空第 ${index + 1} 题第 ${j + 1} 空" placeholder="填写答案"></label>`).join('')}</div><div class="quiz-actions"><button type="button" data-action="check-fill">检查本题</button><button type="button" class="quiz-secondary" data-action="explain">查看答案与解析</button></div><p class="quiz-feedback" aria-live="polite"></p><div class="quiz-explanation" hidden></div></article>`;
+  }
+  function choiceCard(item) {
+    return `<article class="quiz-card" data-choice="${item.id}"><h3>第 ${item.id.startsWith('c2') ? '2' + (item.id === 'c2a' ? ' 题 · 220 V' : ' 题 · 110 V') : item.id.slice(1) + ' 题'}</h3><p>${item.q}</p>${item.fig || ''}${item.id === 'c3' ? '<details class="power-demo"><summary>展开功率计算演示</summary><p>关联方向：电流参考方向流入电压参考正端。可输入正数或负数。</p><div class="power-demo-row"><strong>元件 a：</strong><label>U (V) <input class="power-u" type="number" step="any" value="3"></label><label>I (A) <input class="power-i" type="number" step="any" value="-3"></label><output aria-live="polite"></output></div><div class="power-demo-row"><strong>元件 b：</strong><label>U (V) <input class="power-u" type="number" step="any" value="-2"></label><label>I (A) <input class="power-i" type="number" step="any" value="-2"></label><output aria-live="polite"></output></div></details>' : ''}${item.id === 'c1' ? '<div class="quiz-actions"><button type="button" class="quiz-secondary" data-action="toggle-a" aria-pressed="false">接通 A 相线</button><button type="button" class="quiz-secondary" data-action="toggle-n" aria-pressed="false">接通中线</button></div><p class="switch-state" aria-live="polite">点击按钮，观察电路连接状态。</p>' : ''}${item.id === 'c2a' ? '<div class="quiz-actions"><button type="button" class="quiz-secondary" data-action="winding-220">观察 220 V 接法</button><button type="button" class="quiz-secondary" data-action="winding-110">观察 110 V 接法</button></div><p class="winding-state" aria-live="polite">点击电压，查看绕组的连接方式。</p>' : ''}<fieldset class="quiz-options"><legend>请选择一项</legend>${item.options.map((opt, i) => `<label><input type="radio" name="choice-${item.id}" value="${i}"><span><b>${String.fromCharCode(65 + i)}.</b> ${opt}</span></label>`).join('')}</fieldset><div class="quiz-actions"><button type="button" data-action="check-choice">检查本题</button><button type="button" class="quiz-secondary" data-action="explain">查看答案与解析</button></div><p class="quiz-feedback" aria-live="polite"></p><div class="quiz-explanation" hidden></div></article>`;
+  }
+  window.buildQuizSections = function () {
+    return `<style>
+      .quiz-section {margin: 2rem 0; color: #203449} .quiz-section * {box-sizing:border-box} .quiz-section h2 {font-size:1.5rem;margin:0 0 .45rem} .quiz-intro {color:#53677c;margin:0 0 1.1rem;line-height:1.65} .quiz-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px} .quiz-card {background:#fff;border:1px solid #dbe4ea;border-radius:16px;padding:20px;box-shadow:0 4px 18px #17364b0b;min-width:0} .quiz-card h3 {margin:0 0 .8rem;font-size:1.04rem;color:#1d5571} .quiz-card p {line-height:1.75;margin:.5rem 0 1rem}.quiz-fields {display:flex;flex-wrap:wrap;gap:10px}.quiz-fields label {font-size:.9rem;display:flex;align-items:center;gap:7px}.quiz-fields input {border:1px solid #afc2cf;border-radius:8px;padding:9px 10px;font:inherit;width:150px;max-width:100%}.quiz-options {border:0;margin:0;padding:0}.quiz-options legend {font-size:.85rem;color:#65798c;margin-bottom:7px}.quiz-options label {display:flex;gap:9px;align-items:flex-start;border:1px solid #e0e8ed;border-radius:9px;padding:10px;margin:7px 0;line-height:1.55;cursor:pointer}.quiz-options label:has(input:checked) {background:#eaf5f6;border-color:#4e9b9c}.quiz-options input {margin-top:5px;accent-color:#247a7c}.quiz-actions {display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.quiz-actions button {font:inherit;font-size:.9rem;border:1px solid #236d76;border-radius:8px;padding:8px 12px;background:#236d76;color:white;cursor:pointer}.quiz-actions .quiz-secondary {background:white;color:#236d76}.quiz-actions button:focus-visible,.quiz-fields input:focus-visible {outline:3px solid #e5ad45;outline-offset:2px}.quiz-feedback {font-weight:600;color:#236d76;margin:.7rem 0 0!important}.quiz-explanation {background:#f0f7f7;border-left:3px solid #41999a;border-radius:3px;padding:12px;margin-top:12px;line-height:1.7;font-size:.94rem}.qdiagram {display:block;width:100%;height:auto;background:#f8fbfc;border:1px solid #e1eaef;border-radius:10px;margin:12px 0;max-height:270px}.qdiagram text {font-family:system-ui,'Microsoft YaHei',sans-serif;font-size:18px;fill:#344e68}
+      .power-demo {margin:12px 0;padding:12px;border:1px solid #dbe8eb;border-radius:10px;background:#f7fbfb}.power-demo summary {cursor:pointer;color:#236d76;font-weight:600}.power-demo-row {display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0}.power-demo-row input {width:78px;padding:6px;border:1px solid #afc2cf;border-radius:6px;font:inherit}.power-demo-row output {font-weight:600;color:#236d76}
+    </style><section class="quiz-section" id="fill"><h2>一、填空题</h2><p class="quiz-intro">先独立填写，再逐题检查；答案和解析需要点击才会展开。</p><div class="quiz-grid">${fills.map(fillCard).join('')}</div></section><section class="quiz-section" id="choice"><h2>二、单项选择题</h2><p class="quiz-intro">第 2 题分为两个独立的小问。图中红色叉号表示断线，绕组同名端可根据绕向判断。</p><div class="quiz-grid">${choices.map(choiceCard).join('')}</div></section>`;
+  };
+  window.initQuizSections = function () {
+    document.querySelectorAll('.quiz-section').forEach(section => {
+      if (section.dataset.quizBound) return;
+      section.dataset.quizBound = '1';
+      section.querySelectorAll('.quiz-card').forEach(card => {
+        const item = card.dataset.fill !== undefined ? fills[Number(card.dataset.fill)] : choices.find(c => c.id === card.dataset.choice);
+        if (!item) return;
+        card.id = card.dataset.fill !== undefined ? 'fill-' + (Number(card.dataset.fill) + 1) : 'choice-' + card.dataset.choice;
+        const answerWords = item.slots ? item.slots.flat() : item.options;
+        card.dataset.search = [item.q, item.why, ...answerWords].join(' ');
+      });
+      const updatePower = row => {
+        const uInput = row.querySelector('.power-u');
+        const iInput = row.querySelector('.power-i');
+        const out = row.querySelector('output');
+        if (!uInput.value || !iInput.value) { out.textContent = '请填写电压与电流'; return; }
+        const p = Number(uInput.value) * Number(iInput.value);
+        if (!Number.isFinite(p)) { out.textContent = '请输入有效数值'; return; }
+        out.textContent = 'P = ' + Number(p.toPrecision(8)) + ' W，' + (p > 0 ? '吸收功率' : p < 0 ? '发出功率' : '功率为零');
+      };
+      section.querySelectorAll('.power-demo-row').forEach(updatePower);
+      section.addEventListener('input', event => {
+        const row = event.target.closest('.power-demo-row');
+        if (row) updatePower(row);
+      });
+      section.addEventListener('click', event => {
+        const btn = event.target.closest('button[data-action]');
+        if (!btn) return;
+        const card = btn.closest('.quiz-card');
+        if (btn.dataset.action === 'toggle-a' || btn.dataset.action === 'toggle-n') {
+          const on = btn.getAttribute('aria-pressed') !== 'true';
+          btn.setAttribute('aria-pressed', String(on));
+          const which = btn.dataset.action === 'toggle-a' ? 'a' : 'n';
+          btn.textContent = (on ? '断开' : '接通') + (which === 'a' ? ' A 相线' : '中线');
+          card.querySelector('.qbreak-' + which).style.display = on ? 'none' : '';
+          const aOn = card.querySelector('[data-action="toggle-a"]').getAttribute('aria-pressed') === 'true';
+          const nOn = card.querySelector('[data-action="toggle-n"]').getAttribute('aria-pressed') === 'true';
+          card.querySelector('.switch-state').textContent = nOn ? '中线接通：B、C 两灯分别接在各自的相线与中线之间，互不串联。' : aOn ? '中线断开且 A 相接通：三灯构成无中线星形负载；若三灯不平衡，各灯电压可能偏离额定值。' : 'A 相线与中线均断开：B、C 两灯串联接在 B、C 两相线之间。';
+          return;
+        }
+        if (btn.dataset.action === 'winding-220' || btn.dataset.action === 'winding-110') {
+          card.querySelector('.winding-state').textContent = btn.dataset.action === 'winding-220' ? '220 V：两个 110 V 绕组同向串联，连接 2—3，电源接 1、4。' : '110 V：两个 110 V 绕组同极性并联，连接 1—3、2—4，两组节点接电源。';
+          let visual=card.querySelector('.winding-connection');
+          if(!visual){visual=document.createElement('div');visual.className='winding-connection';card.querySelector('.winding-state').insertAdjacentElement('afterend',visual);}
+          const is220=btn.dataset.action==='winding-220';
+          const links=is220
+            ? `<path d="M385 75 H440 V170 H65 V135 H100" stroke="#d25e38" stroke-width="5" fill="none"/><text x="208" y="194" fill="#a44729" font-size="16">跨接 2—3</text>`
+            : `<path d="M100 75 H65 V135 H100 M385 75 H440 V135 H385" stroke="#d25e38" stroke-width="5" fill="none"/><text x="19" y="174" fill="#a44729" font-size="15">1—3 相连</text><text x="361" y="174" fill="#a44729" font-size="15">2—4 相连</text><text x="8" y="54" fill="#13755e" font-size="15">电源一端</text><text x="374" y="54" fill="#13755e" font-size="15">电源另一端</text>`;
+          visual.innerHTML=`<strong>${is220?'220 V：两绕组串联':'110 V：两绕组并联'}</strong><svg viewBox="0 0 500 205" role="img" aria-label="${is220?'220 伏串联：连接 2 和 3，电源接 1 和 4':'110 伏并联：连接 1 和 3，连接 2 和 4，电源接在两组节点'}"><g fill="none" stroke="#284453" stroke-width="3"><path d="M100 75 H150 M335 75 H385 M100 135 H150 M335 135 H385"/><rect x="150" y="55" width="185" height="40" rx="5" fill="#fff"/><rect x="150" y="115" width="185" height="40" rx="5" fill="#fff"/></g>${links}<g fill="#284453" font-size="16"><text x="83" y="70">1</text><text x="392" y="70">2</text><text x="83" y="130">3</text><text x="392" y="130">4</text><text x="189" y="80">上绕组 · 110 V</text><text x="189" y="140">下绕组 · 110 V</text></g><g fill="#fff" stroke="#284453" stroke-width="3"><circle cx="100" cy="75" r="5"/><circle cx="385" cy="75" r="5"/><circle cx="100" cy="135" r="5"/><circle cx="385" cy="135" r="5"/></g></svg><p class="wire-note">${is220?'电源跨接 1 和 4；2 与 3 是中间接点。':'两组并联节点各接电源的一端；每个绕组两端均为 110 V。'}</p>`;
+
+          return;
+        }
+        const item = card.dataset.fill !== undefined ? fills[Number(card.dataset.fill)] : choices.find(c => c.id === card.dataset.choice);
+        const feedback = card.querySelector('.quiz-feedback');
+        const explanation = card.querySelector('.quiz-explanation');
+        if (btn.dataset.action === 'explain') {
+          explanation.hidden = !explanation.hidden;
+          if (!explanation.hidden) {
+            const answer = item.slots ? item.slots.map((s, i) => item.distinct ? (i === 0 ? '铜耗' : '铁耗') : s[0]).join('；') : String.fromCharCode(65 + item.answer);
+            explanation.innerHTML = '<strong>参考答案：</strong>' + esc(answer) + '<br><strong>解析：</strong>' + esc(item.why);
+          }
+          btn.textContent = explanation.hidden ? '查看答案与解析' : '收起答案与解析';
+        } else if (btn.dataset.action === 'check-choice') {
+          const selected = card.querySelector('input[type="radio"]:checked');
+          feedback.textContent = !selected ? '请先选择一个选项。' : Number(selected.value) === item.answer ? '回答正确！可以展开解析巩固理解。' : '这次未选对，可以再想一想或查看解析。';
+        } else if (btn.dataset.action === 'check-fill') {
+          const values = Array.from(card.querySelectorAll('.quiz-fields input'), input => norm(input.value));
+          if (values.some(v => !v)) { feedback.textContent = '请先填写每一个空。'; return; }
+          let correct;
+          if (item.distinct) {
+            const copper = ['铜耗','铜损','铜损耗']; const iron = ['铁耗','铁损','铁损耗'];
+            correct = (copper.includes(values[0]) && iron.includes(values[1])) || (iron.includes(values[0]) && copper.includes(values[1]));
+          } else correct = values.every((v, i) => item.slots[i].map(norm).includes(v));
+          feedback.textContent = correct ? '回答正确！可以展开解析巩固理解。' : '答案还不完全正确，请检查用词或查看解析。';
+        }
+      });
+    });
+  };
+})();
+</script><script>(function () {
+  'use strict';
+  const input = (key, label, value, unit, positive = false) => `<label class="c-input"><span>${label} <small>${unit}</small></span><input type="number" step="any" ${positive ? 'min="0.000001"' : ''} value="${value}" data-key="${key}"></label>`;
+  const wrap = (n, title, svg, controls) => `<section class="circuit-card" id="calc${n}"><div class="c-head"><span class="c-num">0${n}</span><div><p class="c-kicker">计算题 ${n}</p><h3>${title}</h3></div><button class="c-reset" type="button">恢复原题</button></div><div class="c-layout"><div class="c-visual">${svg}<p>可调整右侧参数，结果会同步更新。</p></div><div class="c-side"><div class="c-controls">${controls}</div><div class="c-result" aria-live="polite"></div></div></div></section>`;
+  const shell = (body, label) => `<svg viewBox="0 0 560 300" role="img" aria-label="${label}" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#253b4d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">${body}</g></svg>`;
+  const t = (x,y,s, extra='') => `<text x="${x}" y="${y}" fill="#253b4d" stroke="none" font-size="16" font-family="Segoe UI, Microsoft YaHei, sans-serif" ${extra}>${s}</text>`;
+  const label = (x,y,key,prefix,suffix='') => `<text x="${x}" y="${y}" fill="#253b4d" stroke="none" font-size="16" font-family="Segoe UI, Microsoft YaHei, sans-serif"><tspan>${prefix}</tspan><tspan data-svg="${key}"></tspan><tspan>${suffix}</tspan></text>`;
+  const q2svg = shell(`
+    <path d="M75 90 H128 M177 90 H220 M220 90 V110 M220 190 V210 H75 V176 M75 124 V90"/><circle cx="75" cy="150" r="26"/><path d="M135 78 H170 V102 H135 Z M220 110 C198 110 198 126 220 126 C198 126 198 142 220 142 C198 142 198 158 220 158 C198 158 198 174 220 174 C198 174 198 190 220 190 M244 104 V196 M253 104 V196 M277 110 C299 110 299 126 277 126 C299 126 299 142 277 142 C299 142 299 158 277 158 C299 158 299 174 277 174 C299 174 299 190 277 190 M277 110 V90 H430 V122 M277 190 V210 H430 V178 M417 122 H443 V178 H417 Z"/>
+    ${t(65,155,'∿')}${label(33,247,'E','E = ',' V')}${label(112,65,'R0','R₀ = ',' Ω')}${label(180,270,'N1','N₁ = ')}${label(286,270,'N2','N₂ = ')}${label(410,107,'RL','Rₗ = ',' Ω')}${t(367,240,'扬声器')}`,'信号源、内阻、理想变压器和扬声器电路');
+  const q3svg = shell(`
+    <path d="M125 65 H177 M235 65 H302 M354 65 H430 V100 M430 150 V235 H354 M302 235 H235 M177 235 H125 V204 M125 152 V120 M125 65 V80 M125 120 H125 M110 80 H140 V120 H110 Z M177 52 H235 V78 H177 Z M416 100 H444 V150 H416 Z M177 222 H235 V248 H177 Z"/><circle cx="328" cy="65" r="26"/><circle cx="328" cy="235" r="26"/><circle cx="125" cy="178" r="26"/>
+    ${t(98,60,'A')}${t(442,66,'B')}${t(442,243,'C')}${t(98,250,'D = 0')}${t(307,48,'+')}${t(345,48,'−')}${t(307,217,'+')}${t(345,217,'−')}${t(93,165,'+')}${t(94,202,'−')}${label(155,41,'R2','R₂ ',' Ω')}${label(28,103,'R1','R₁ ',' Ω')}${label(450,132,'R3','R₃ ',' Ω')}${label(175,275,'R4','R₄ ',' Ω')}${label(294,28,'E2','E₂ ',' V')}${label(291,277,'E4','E₄ ',' V')}${label(25,184,'E1','E₁ ',' V')}`,'单回路电路，D 为电位参考点');
+  const q4svg = shell(`
+    <path d="M110 45 H440 V84 M440 136 V245 H362 M300 245 H110 V214 M110 162 V141 M110 89 V45 M110 141 H188 M246 141 H275 M305 141 H350 M408 141 H440 M290 45 V84 M290 124 V141 M188 129 H246 V153 H188 Z M350 129 H408 V153 H350 Z M277 84 H303 V124 H277 Z M300 233 H362 V257 H300 Z"/><circle cx="110" cy="115" r="26"/><circle cx="110" cy="188" r="26"/><circle cx="440" cy="110" r="26"/>
+    ${t(76,98,'+')}${t(76,141,'−')}${t(76,173,'−')}${t(76,214,'+')}${t(455,94,'+')}${t(455,140,'−')}${label(20,118,'U1','Uₛ₁ ',' V')}${label(20,191,'U3','Uₛ₃ ',' V')}${label(454,116,'U2','Uₛ₂ ',' V')}${t(184,121,'R₁ 10 Ω')}${t(254,75,'R₂ 10 Ω')}${t(347,121,'R₃ 4 Ω')}${label(288,281,'R4','R₄ ',' Ω')}${t(151,239,'a')}${t(420,239,'b')}${t(208,220,'I →')}`,'三个理想电压源及四个电阻组成的电路');
+  const q5svg = shell(`
+    <path d="M110 65 H310 M110 65 V95 M110 135 V165 M110 215 V245 H480 M250 65 V97 M250 137 V245 M355 65 H385 M435 65 H480 M97 95 H123 V135 H97 Z M237 97 H263 V137 H237 Z M310 52 H355 V78 H310 Z M250 80 H190 V158 M190 208 V245"/><circle cx="110" cy="190" r="25"/><circle cx="190" cy="183" r="25"/><circle cx="410" cy="65" r="25"/><path d="M190 196 V170 M184 176 L190 170 L196 176"/>
+    ${t(480,61,'a')}${t(480,263,'b')}${t(79,178,'+')}${t(79,217,'−')}${t(387,46,'−')}${t(425,46,'+')}${label(35,118,'R1','R₁ ',' Ω')}${label(265,120,'R2','R₂ ',' Ω')}${label(302,41,'R3','R₃ ',' Ω')}${label(29,195,'U1','Uₛ₁ ',' V')}${label(135,224,'Is','Iₛ ',' A ↑')}${label(385,106,'U3','Uₛ₃ ',' V')}`,'戴维宁等效电路，端口为 a 和 b');
+  window.buildCircuitSections = function () {
+    return `<style>
+      .circuit-card{margin:22px 0;padding:25px;border:1px solid #d8e4e8;border-radius:20px;background:#fff;box-shadow:0 8px 26px #17394d0c;color:#203849}.c-head{display:flex;gap:14px;align-items:center;margin-bottom:18px}.c-num{display:grid;place-items:center;background:#dff2ec;color:#17785e;border-radius:14px;width:46px;height:46px;font-weight:800}.c-head h3{margin:0;font-size:21px}.c-kicker{margin:0 0 3px!important;color:#628079;font-size:12px;font-weight:700;letter-spacing:.12em}.c-reset{margin-left:auto;border:1px solid #c9dfd8;background:white;border-radius:9px;padding:8px 12px;color:#28755f;cursor:pointer}.c-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:22px}.c-visual{border-radius:15px;background:#f3f8f7;padding:14px;align-self:start}.c-visual svg{width:100%;height:auto;display:block}.c-visual p{margin:4px 0 0;color:#658078;font-size:12px}.c-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.c-input{display:flex;flex-direction:column;gap:5px;color:#4e6766;font-size:13px}.c-input small{color:#8a9b9b}.c-input input{width:100%;box-sizing:border-box;border:1px solid #cadbd8;background:#fbfdfc;border-radius:8px;padding:8px 9px;color:#203849;font:inherit}.c-result{margin-top:15px;border-left:3px solid #46a98a;padding:3px 0 3px 13px;line-height:1.7;color:#425a61;font-size:14px}.c-result strong{color:#13785d}.c-result .c-main{font-size:17px;font-weight:700;color:#13785d;margin-bottom:7px}.c-note{color:#718385;font-size:12px}.c-error{color:#b54735}.c-formula{overflow-wrap:anywhere}.c-result p{margin:5px 0}@media(max-width:760px){.c-layout{grid-template-columns:1fr}.circuit-card{padding:17px}.c-controls{grid-template-columns:repeat(2,minmax(0,1fr))}.c-head h3{font-size:18px}}
+    </style>` +
+    wrap(2,'变压器与扬声器',q2svg,[input('N1','一次侧匝数',300,'匝',true),input('N2','二次侧匝数',100,'匝',true),input('RL','扬声器电阻',8,'Ω',true),input('E','信号源电动势',6,'V'),input('R0','信号源内阻',100,'Ω',true)].join(''))+
+    wrap(3,'单回路电位',q3svg,[input('E1','电源 E₁',6,'V'),input('E2','电源 E₂',24,'V'),input('E4','电源 E₄',6,'V'),input('R1','电阻 R₁',1,'Ω',true),input('R2','电阻 R₂',6,'Ω',true),input('R3','电阻 R₃',2,'Ω',true),input('R4','电阻 R₄',1,'Ω',true)].join(''))+
+    wrap(4,'求 R₄ 中的电流',q4svg,[input('U1','电源 Uₛ₁',150,'V'),input('U2','电源 Uₛ₂',120,'V'),input('U3','电源 Uₛ₃',20,'V'),input('R4','电阻 R₄',10,'Ω',true)].join(''))+
+    wrap(5,'戴维宁等效电路',q5svg,[input('U1','电源 Uₛ₁',2,'V'),input('Is','电流源 Iₛ',1,'A'),input('U3','电源 Uₛ₃',3,'V'),input('R1','电阻 R₁',4,'Ω',true),input('R2','电阻 R₂',4,'Ω',true),input('R3','电阻 R₃',2,'Ω',true)].join(''));
+  };
+  const fmt = x => { if (!Number.isFinite(x)) return '—'; if (Math.abs(x)<1e-10) return '0'; return Number(x.toPrecision(5)).toString(); };
+  window.initCircuitSections = function () {
+    for (const card of document.querySelectorAll('.circuit-card')) {
+      if (card.dataset.initialized) continue; card.dataset.initialized='1';
+      const entries = [...card.querySelectorAll('input[data-key]')];
+      const defaults = Object.fromEntries(entries.map(el => [el.dataset.key,el.value]));
+      function update() {
+        const p = Object.fromEntries(entries.map(el => [el.dataset.key,Number(el.value)]));
+        for (const el of entries) card.querySelectorAll(`[data-svg="${el.dataset.key}"]`).forEach(node => node.textContent=el.value || '—');
+        const output = card.querySelector('.c-result');
+        if (entries.some(el => el.value.trim()==='' || !Number.isFinite(Number(el.value)) || (el.hasAttribute('min') && Number(el.value)<=0))) { output.innerHTML='<span class="c-error">请输入有效数值；电阻和匝数须大于零。</span>'; return; }
+        let html='';
+        if(card.id==='calc2') {
+          const r=p.RL*(p.N1/p.N2)**2, i=p.E/(p.R0+r), power=i*i*r, internal=i*i*p.R0, emf=p.E*i;
+          html=`<div class="c-main">信号源端口输出功率 ${fmt(power)} W</div><p class="c-formula">负载折算：R′ = (N₁/N₂)²Rₗ = ${fmt(r)} Ω</p><p>一次电流：I₁ = E / (R₀ + R′) = ${fmt(i)} A</p><p>输出功率：P = I₁²R′ = <strong>${fmt(power)} W</strong></p><p class="c-note">按理想变压器、电动势为有效值计算；理想电源内部发出功率为 ${fmt(emf)} W，其中内阻消耗 ${fmt(internal)} W。</p>`;
+        } else if(card.id==='calc3') {
+          const sum=p.R1+p.R2+p.R3+p.R4, i=(p.E2-p.E1-p.E4)/sum, va=p.E1+i*p.R1, vc=-i*p.R4-p.E4, vb=vc-i*p.R3;
+          html=`<div class="c-main">Vₐ = ${fmt(va)} V　Vᵦ = ${fmt(vb)} V　V꜀ = ${fmt(vc)} V</div><p>以逆时针为电流正方向：<br>I = (E₂ − E₁ − E₄) / (R₁ + R₂ + R₃ + R₄) = ${fmt(i)} A</p><p>Vₐ = E₁ + IR₁ = ${fmt(va)} V<br>V꜀ = −IR₄ − E₄ = ${fmt(vc)} V<br>Vᵦ = V꜀ − IR₃ = ${fmt(vb)} V</p><p class="c-note">若电流为负，实际电流方向为顺时针；D 点电位为零。</p>`;
+        } else if(card.id==='calc4') {
+          const va=p.U2-p.U1+p.U3, i=va/p.R4;
+          html=`<div class="c-main">I = ${fmt(i)} A ${i<0?'（实际从 b 流向 a）':i>0?'（从 a 流向 b）':'（无电流）'}</div><p>取 b 点为零电位，沿电源支路求 a 点：</p><p>Vₐ = Uₛ₂ − Uₛ₁ + Uₛ₃ = ${fmt(va)} V</p><p>I = (Vₐ − Vᵦ) / R₄ = <strong>${fmt(i)} A</strong></p><p class="c-note">电源均按图示极性作为理想电压源；其余电阻不改变 a、b 之间的电压。</p>`;
+        } else if(card.id==='calc5') {
+          const v=(p.Is+p.U1/p.R1)/(1/p.R1+1/p.R2), u=v+p.U3, rp=p.R1*p.R2/(p.R1+p.R2), r=p.R3+rp;
+          html=`<div class="c-main">Uₜₕ = ${fmt(u)} V　Rₜₕ = ${fmt(r)} Ω</div><p>端口开路，R₃ 中电流为零。设内部上节点电位为 V：<br>(V − Uₛ₁)/R₁ + V/R₂ = Iₛ<br>V = ${fmt(v)} V，故 Uₜₕ = V + Uₛ₃ = ${fmt(u)} V。</p><p>独立电压源短路、电流源开路：<br>Rₜₕ = R₃ + (R₁ ∥ R₂) = ${fmt(r)} Ω。</p><p class="c-note">Uₜₕ 的参考方向为 Vₐ − Vᵦ；结果为负时，b 端电位更高。</p>`;
+        }
+        output.innerHTML=html;
+      }
+      entries.forEach(el=>el.addEventListener('input',update));
+      card.querySelector('.c-reset').addEventListener('click',()=>{entries.forEach(el=>el.value=defaults[el.dataset.key]);update();});
+      update();
+    }
+  };
+})();
+
+</script><script>/* Interactive sections for the electrical engineering examination. */
+window.buildMotorSections = function () {
+  const points = Array.from({length: 101}, (_, i) => {
+    const s = i / 100, sm = 0.25, t = s === 0 ? 0 : 2 * s * sm / (s * s + sm * sm);
+    return `${(72 + 260 * t).toFixed(1)},${(60 + 230 * s).toFixed(1)}`;
+  });
+  const stable = points.slice(0, 26).join(' ');
+  const html = `
+  <style>
+    .motor-section { margin: 1.25rem 0; padding: clamp(1rem, 3vw, 1.7rem); border: 1px solid #d8e5e4; border-radius: 18px; background: #fff; color: #173331; }
+    .motor-section h2 { margin: 0 0 .65rem; font-size: 1.35rem; }
+    .motor-section h3 { margin: 1.25rem 0 .55rem; font-size: 1.05rem; }
+    .motor-section p { line-height: 1.75; margin: .55rem 0; }
+    .motor-hint { color: #53716d; font-size: .93rem; }
+    .motor-visual { width: 100%; overflow-x: auto; margin: .8rem 0; background: #f4f9f7; border-radius: 12px; }
+    .motor-visual svg { display: block; width: 100%; max-width: 700px; min-width: 390px; height: auto; margin: auto; }
+    .motor-section .motor-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: .65rem; margin: .85rem 0; }
+    .motor-section label { display: flex; flex-direction: column; gap: .3rem; font-size: .9rem; color: #355b55; font-weight: 600; }
+    .motor-section input { box-sizing: border-box; width: 100%; padding: .6rem .65rem; border: 1px solid #aec8c2; border-radius: 8px; font: inherit; color: #173331; background: white; }
+    .motor-results { padding: .85rem 1rem; background: #edf7f2; border-left: 4px solid #25866e; border-radius: 8px; line-height: 1.8; }
+    .motor-results strong { color: #126850; }
+    .motor-section details { margin-top: .8rem; border-top: 1px solid #d8e5e4; padding-top: .75rem; }
+    .motor-section summary { cursor: pointer; color: #176e5e; font-weight: 700; }
+    .motor-warning { color: #9c3b32; }
+  </style>
+  <section class="motor-section" id="short">
+    <h2>三、简答题</h2>
+    <h3>1. 三相异步电动机的机械特性</h3>
+    <p>机械特性表示转速 <i>n</i> 与电磁转矩 <i>T</i> 的关系。下面是示意曲线；从同步转速附近到最大转矩点之间的绿色部分是常用稳定运行段。</p>
+    <div class="motor-visual"><svg viewBox="0 0 460 345" role="img" aria-label="异步电动机转速与转矩特性示意图，标出同步转速、最大转矩和稳定运行段">
+      <defs><marker id="motor-arrow-axis" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" fill="#315750"/></marker></defs>
+      <path d="M72 306 V35 M57 290 H382" stroke="#315750" stroke-width="2" fill="none" marker-end="url(#motor-arrow-axis)"/>
+      <polyline points="${points.join(' ')}" fill="none" stroke="#9baaa7" stroke-width="4"/>
+      <polyline points="${stable}" fill="none" stroke="#178467" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="72" cy="60" r="4" fill="#178467"/><circle cx="332" cy="117.5" r="4" fill="#178467"/><circle cx="194.4" cy="290" r="4" fill="#9baaa7"/>
+      <path d="M332 118 V290" stroke="#9cadaa" stroke-dasharray="4 5"/><path d="M72 118 H332" stroke="#9cadaa" stroke-dasharray="4 5"/>
+      <text x="41" y="62" font-size="15" fill="#254c44">n₀</text><text x="41" y="123" font-size="15" fill="#254c44">nₘ</text>
+      <text x="310" y="315" font-size="15" fill="#254c44">Tₘₐₓ</text><text x="176" y="315" font-size="15" fill="#254c44">Tst</text>
+      <text x="65" y="25" font-size="16" fill="#254c44">n</text><text x="390" y="296" font-size="16" fill="#254c44">T</text>
+      <text x="150" y="75" font-size="15" fill="#176e5e">常用稳定段</text><text x="215" y="210" font-size="14" fill="#617771">低速段</text>
+    </svg></div>
+    <p class="motor-hint">图为定性示意。负载转矩增加时，稳定运行段内转速略降；超过最大转矩，电动机无法维持稳定运行。</p>
+    <h3>2. 负载转矩一定，电源电压下降</h3>
+    <p>电压刚下降时，转速尚未改变，电磁转矩约按电压的平方下降；电动机随之减速，转差率增大。若仍可稳定运行，最终转矩重新与负载转矩及机械损耗相平衡，转速低于原来。</p>
+    <p>在正常负载下，转子电流和定子电流通常增大。轻载时，定子总电流也受励磁电流变化影响，不一定增大。电压过低使最大转矩小于负载转矩时，电动机可能堵转。</p>
+  </section>
+  <section class="motor-section" id="motor-circuit-6">
+    <h2>四、计算题 6：戴维宁等效与最大功率</h2>
+    <p>按图中箭头取负载电流方向。改变元件参数，观察等效电压、等效电阻和负载电流的变化。</p>
+    <div class="motor-visual"><svg viewBox="0 0 650 350" role="img" aria-label="电路图：24伏电压源、6欧电阻、3欧电阻、4欧电阻与4安电流源并联，右侧接负载电阻">
+      <defs><marker id="motor-arrow-current" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#155d4e"/></marker></defs>
+      <g fill="none" stroke="#173e37" stroke-width="3" stroke-linejoin="round">
+        <path d="M70 245 V265 H555 V245 M70 175 V140 H120 M190 140 H245 M245 140 V205 M245 245 V265 M245 140 H290 M360 140 H440 M440 140 H555 V190 M245 140 V65 H310 M370 65 H440 V140"/>
+        <rect x="120" y="129" width="70" height="22" fill="#fff"/><rect x="234" y="205" width="22" height="40" fill="#fff"/><rect x="290" y="129" width="70" height="22" fill="#fff"/><rect x="544" y="190" width="22" height="55" fill="#fff"/>
+        <circle cx="70" cy="210" r="35" fill="#fff"/><circle cx="340" cy="65" r="30" fill="#fff"/>
+        <path d="M322 65 H358" stroke="#155d4e" marker-end="url(#motor-arrow-current)"/><path d="M590 176 V226" stroke="#155d4e" marker-end="url(#motor-arrow-current)"/>
+      </g><g fill="#173e37" font-family="sans-serif" font-size="17">
+        <text x="60" y="195">+</text><text x="63" y="238">−</text><text x="10" y="215">Uₛ</text>
+        <text x="138" y="119">R₁</text><text x="266" y="228">R₂</text><text x="310" y="119">R₃</text><text x="332" y="25">Iₛ</text>
+        <text x="510" y="130">a</text><text x="510" y="286">b</text><text x="575" y="213">R<tspan baseline-shift="sub" font-size="12">L</tspan></text><text x="600" y="205">I</text>
+      </g><g fill="#173e37"><circle cx="245" cy="140" r="4"/><circle cx="440" cy="140" r="4"/><circle cx="510" cy="140" r="4"/><circle cx="510" cy="265" r="4"/></g>
+    </svg></div>
+    <div class="motor-inputs">
+      <label>电压源 Uₛ（V）<input id="m6-us" type="number" step="any" value="24"></label>
+      <label>电流源 Iₛ（A）<input id="m6-is" type="number" step="any" value="4"></label>
+      <label>电阻 R₁（Ω）<input id="m6-r1" type="number" min="0.001" step="any" value="6"></label>
+      <label>电阻 R₂（Ω）<input id="m6-r2" type="number" min="0.001" step="any" value="3"></label>
+      <label>电阻 R₃（Ω）<input id="m6-r3" type="number" min="0.001" step="any" value="4"></label>
+      <label>负载 R<sub>L</sub>（Ω）<input id="m6-rl" type="number" min="0.001" step="any" value="2"></label>
+    </div>
+    <div id="m6-output" class="motor-results" aria-live="polite"></div>
+    <details><summary>查看解题思路</summary><p>断开负载时，电流源电流经 R₃ 返回，中心节点电压由 R₁、R₂ 分压得到，因此 U<sub>th</sub> = UₛR₂/(R₁ + R₂) + IₛR₃。将独立电压源短路、独立电流源开路，得到 R<sub>th</sub> = R₃ + R₁∥R₂。负载电流为 U<sub>th</sub>/(R<sub>th</sub> + R<sub>L</sub>)；当负载等于等效电阻时，负载获得最大功率。</p></details>
+  </section>
+  <section class="motor-section" id="motor-problem-7">
+    <h2>四、计算题 7：三相异步电动机</h2>
+    <p>题中数据：45 kW、1480 r/min、380 V、效率 92.3%、功率因数 0.88；额定运行时为 Δ 接法，启动电流倍数为 7，启动转矩倍数为 1.9。</p>
+    <div class="motor-results"><strong>4 极</strong>，同步转速 n₀ = 1500 r/min，额定转差率 s<sub>N</sub> = (1500 − 1480)/1500 = <strong>1.33%</strong>。<br>
+      额定线电流 I<sub>N</sub> = 45000/(√3 × 380 × 0.923 × 0.88) ≈ <strong>84.18 A</strong>。<br>
+      额定转矩 T<sub>N</sub> = 9550 × 45/1480 ≈ <strong>290.37 N·m</strong>。</div>
+    <h3>调整负载与电路限制</h3>
+    <div class="motor-inputs">
+      <label>长期运行负载转矩（N·m）<input id="m7-running" type="number" min="0" step="any" value="300"></label>
+      <label>启动负载转矩（N·m）<input id="m7-start" type="number" min="0" step="any" value="250"></label>
+      <label>允许最大电流（A）<input id="m7-limit" type="number" min="0" step="any" value="300"></label>
+    </div>
+    <div id="m7-output" class="motor-results" aria-live="polite"></div>
+    <p class="motor-hint">按常用近似，Y 启动时的线电流和启动转矩均约为同线电压下 Δ 直接启动的 1/3；实际启动还须考虑整个加速过程中的转矩和切换条件。</p>
+  </section>`;
+  const splitAt = html.indexOf('<section class="motor-section" id="motor-circuit-6">');
+  return { short: html.slice(0, splitAt), calc: html.slice(splitAt) };
+};
+
+window.initMotorSections = function () {
+  const el = id => document.getElementById(id);
+  const number = id => el(id).value.trim() === '' ? NaN : Number(el(id).value);
+  const fmt = v => Number(v.toFixed(3)).toString();
+  function updateCircuit() {
+    const us = number('m6-us'), is = number('m6-is'), r1 = number('m6-r1'), r2 = number('m6-r2'), r3 = number('m6-r3'), rl = number('m6-rl');
+    if (![us, is, r1, r2, r3, rl].every(Number.isFinite) || [r1, r2, r3, rl].some(x => x <= 0)) {
+      el('m6-output').innerHTML = '<span class="motor-warning">请填写有效数值，所有电阻必须大于 0。</span>'; return;
+    }
+    const uth = us * r2 / (r1 + r2) + is * r3, rth = r3 + r1 * r2 / (r1 + r2), current = uth / (rth + rl), pmax = uth * uth / (4 * rth);
+    el('m6-output').innerHTML = `开路电压 U<sub>th</sub> = ${fmt(us)} × ${fmt(r2)}/(${fmt(r1)} + ${fmt(r2)}) + ${fmt(is)} × ${fmt(r3)} = <strong>${fmt(uth)} V</strong><br>等效电阻 R<sub>th</sub> = ${fmt(r3)} + (${fmt(r1)}∥${fmt(r2)}) = <strong>${fmt(rth)} Ω</strong><br>负载电流 I = ${fmt(uth)}/(${fmt(rth)} + ${fmt(rl)}) = <strong>${fmt(current)} A</strong>（按图示向下为正）<br>最大功率条件：R<sub>L</sub> = <strong>${fmt(rth)} Ω</strong>；P<sub>max</sub> = U<sub>th</sub>²/(4R<sub>th</sub>) = <strong>${fmt(pmax)} W</strong>`;
+  }
+  function updateMotor() {
+    const run = number('m7-running'), start = number('m7-start'), limit = number('m7-limit');
+    if (![run, start, limit].every(Number.isFinite) || [run, start, limit].some(x => x < 0)) {
+      el('m7-output').innerHTML = '<span class="motor-warning">请输入大于或等于 0 的有效数值。</span>'; return;
+    }
+    const ratedI = 45000 / (Math.sqrt(3) * 380 * .923 * .88), ratedT = 9550 * 45 / 1480;
+    const directI = 7 * ratedI, directT = 1.9 * ratedT, starI = directI / 3, starT = directT / 3;
+    const directOK = directI <= limit && directT > start, starOK = starI <= limit && starT > start;
+    el('m7-output').innerHTML = `长期运行：负载 ${fmt(run)} N·m ${run <= ratedT ? '≤' : '>'} 额定转矩 ${ratedT.toFixed(2)} N·m，<strong>${run <= ratedT ? '满足额定转矩条件' : '超过额定转矩，不适合长期运行'}</strong>。<br><br>Δ 直接启动：电流 ${directI.toFixed(1)} A ${directI <= limit ? '≤' : '>'} ${fmt(limit)} A；启动转矩 ${directT.toFixed(1)} N·m ${directT > start ? '>' : '≤'} ${fmt(start)} N·m。<strong>${directOK ? '满足起动瞬间条件' : '不满足启动条件'}</strong>。<br><br>Y－Δ 启动：电流约 ${starI.toFixed(1)} A ${starI <= limit ? '≤' : '>'} ${fmt(limit)} A；启动转矩约 ${starT.toFixed(1)} N·m ${starT > start ? '>' : '≤'} ${fmt(start)} N·m。<strong>${starOK ? '满足起动瞬间条件' : '不满足启动条件'}</strong>。`;
+  }
+  ['m6-us', 'm6-is', 'm6-r1', 'm6-r2', 'm6-r3', 'm6-rl'].forEach(id => el(id)?.addEventListener('input', updateCircuit));
+  ['m7-running', 'm7-start', 'm7-limit'].forEach(id => el(id)?.addEventListener('input', updateMotor));
+  if (el('m6-output')) updateCircuit();
+  if (el('m7-output')) updateMotor();
+};
+</script>
+<script>
+document.getElementById('quiz-mount').innerHTML=window.buildQuizSections();
+const motor=window.buildMotorSections();
+if(typeof motor==='string'){document.getElementById('motor-mount').innerHTML=motor;}else{document.getElementById('motor-mount').innerHTML=motor.short||'';document.getElementById('motor-calc-mount').innerHTML=motor.calc||'';}
+document.getElementById('circuits-mount').innerHTML=window.buildCircuitSections();
+window.initQuizSections();window.initCircuitSections();window.initMotorSections();
+function magUpdate(){const h=Number(document.getElementById('mag-h').value),l=Number(document.getElementById('mag-l').value),n=Number(document.getElementById('mag-n').value),out=document.getElementById('mag-out');if(!Number.isFinite(h)||!Number.isFinite(l)||n<=0||h<0||l<0){out.textContent='请输入非负的 H 和长度，以及大于 0 的匝数。';return}out.innerHTML=`由安培环路定律 NI = Hl，故 I = Hl / N。<br>I = ${h} × ${(l/100).toFixed(3)} / ${n} = <strong>${(h*l/100/n).toFixed(2)} A</strong>。`;}
+['mag-h','mag-l','mag-n'].forEach(id=>document.getElementById(id).addEventListener('input',magUpdate));magUpdate();
+</script><script>
+(function(){
+const solutions={"calc1": "<p><strong>思路：<\/strong>先由题给磁化曲线，根据铁芯材料和磁感应强度查出磁场强度 H，再用安培环路定律求电流。以下代入原题数据。<\/p><ol><li><strong>统一单位：<\/strong>N = 300 匝，B = 0.9 T，磁路平均长度 l = 45 cm = 0.45 m。<\/li><li><strong>查磁化曲线：<\/strong>找到代表铸铁的 a 曲线，在 B = 0.9 T 处与该曲线相交，向横轴读取磁场强度。注意铸铁曲线应使用图中<strong>上方<\/strong>横坐标，可近似取 H ≈ 9 × 10<sup>3<\/sup> A/m。图线较粗，读数存在一定误差。<\/li><li><strong>列安培环路定律：<\/strong>均匀闭合磁路中，线圈磁动势 NI 与磁场强度沿磁路的积分相等，因此 NI = Hl。<\/li><li><strong>代入求电流：<\/strong>I = Hl / N ≈ (9 × 10<sup>3<\/sup> × 0.45) / 300 = <strong>13.5 A<\/strong>。<\/li><\/ol><p>该结果随读图取值略有变化；如果换用其他 B，须先从同一材料的磁化曲线重新读取对应的 H。<\/p>", "calc2": "<p><strong>思路：<\/strong>先把二次侧扬声器电阻折算到变压器一次侧，再将它与信号源内阻串联，求一次电流和输出功率。按理想变压器、电动势 6 V 为有效值计算。<\/p><ol><li><strong>求变比：<\/strong>N<sub>1<\/sub>/N<sub>2<\/sub> = 300/100 = 3。理想变压器的阻抗按匝数比的平方折算。<\/li><li><strong>负载折算至一次侧：<\/strong>R′<sub>L<\/sub> = (N<sub>1<\/sub>/N<sub>2<\/sub>)<sup>2<\/sup>R<sub>L<\/sub> = 3<sup>2<\/sup> × 8 = 72 Ω。<\/li><li><strong>求一次电流：<\/strong>折算后，信号源内阻与等效负载串联，总电阻为 R<sub>0<\/sub> + R′<sub>L<\/sub> = 100 + 72 = 172 Ω，所以 I<sub>1<\/sub> = E/(R<sub>0<\/sub> + R′<sub>L<\/sub>) = 6/172 ≈ 0.03488 A。<\/li><li><strong>求信号源端口输出功率：<\/strong>P<sub>输出<\/sub> = I<sub>1<\/sub><sup>2<\/sup>R′<sub>L<\/sub> = (6/172)<sup>2<\/sup> × 72 ≈ <strong>0.0876 W<\/strong>。理想变压器无损耗，这也等于扬声器获得的功率。<\/li><\/ol><p><strong>注意功率口径：<\/strong>理想电动势本身发出的功率为 EI<sub>1<\/sub> ≈ 0.2093 W；其中内阻消耗 I<sub>1<\/sub><sup>2<\/sup>R<sub>0<\/sub> ≈ 0.1217 W，剩余约 0.0876 W 才是信号源向外部电路输出的功率。<\/p>", "calc3": "<p><strong>思路：<\/strong>该电路只有一个回路，先按基尔霍夫电压定律求电流，再以 D 点为零电位，沿各支路计算 A、B、C 的电位。<\/p><ol><li><strong>选定电流方向：<\/strong>假设回路电流 I 沿逆时针方向，依次经过 D → C → B → A → D。四个电阻串联，总电阻 R = 1 + 6 + 2 + 1 = 10 Ω。<\/li><li><strong>列回路方程：<\/strong>按所设方向，E<sub>2<\/sub> 是电位上升，E<sub>1<\/sub>、E<sub>4<\/sub> 是电位下降。因此 24 − 6 − 6 − 10I = 0，得 I = <strong>1.2 A<\/strong>。结果为正，说明实际电流确为逆时针。<\/li><li><strong>求 A 点电位：<\/strong>V<sub>D<\/sub> = 0。从 D 向上经过 E<sub>1<\/sub>，电位升高 6 V；再逆着电流经过 R<sub>1<\/sub>，电位升高 IR<sub>1<\/sub> = 1.2 × 1 = 1.2 V。故 V<sub>A<\/sub> = 0 + 6 + 1.2 = <strong>7.2 V<\/strong>。<\/li><li><strong>求 C 点电位：<\/strong>从 D 向右顺着电流经过 R<sub>4<\/sub>，电位下降 1.2 × 1 = 1.2 V；再经过 E<sub>4<\/sub> 由正极至负极，下降 6 V。故 V<sub>C<\/sub> = 0 − 1.2 − 6 = <strong>−7.2 V<\/strong>。<\/li><li><strong>求 B 点电位：<\/strong>从 C 向上顺着电流经过 R<sub>3<\/sub>，电位下降 IR<sub>3<\/sub> = 1.2 × 2 = 2.4 V。故 V<sub>B<\/sub> = V<sub>C<\/sub> − 2.4 = <strong>−9.6 V<\/strong>。<\/li><\/ol><p>核对：由 B 向 A 经过 24 V 电源上升 24 V，再经过 6 Ω 电阻下降 7.2 V，可得 V<sub>A<\/sub> = −9.6 + 24 − 7.2 = 7.2 V，与前面一致。<\/p>", "calc4": "<p><strong>思路：<\/strong>要求 R<sub>4<\/sub> 电流，只需求出其两端电压 U<sub>ab<\/sub>。三个理想电压源已经确定 a、b 两点的电位差，因此无需先求其他支路的电流。<\/p><ol><li><strong>选参考点：<\/strong>取 b 点电位 V<sub>b<\/sub> = 0。<\/li><li><strong>沿电源支路求 a 点电位：<\/strong>从 b 点向上经过 U<sub>s2<\/sub>，由负端到正端，电位上升 120 V；再向下经过 U<sub>s1<\/sub>，由正端到负端，电位下降 150 V；继续向下经过 U<sub>s3<\/sub>，由负端到正端，电位上升 20 V。<\/li><li><strong>计算端电压：<\/strong>V<sub>a<\/sub> = 0 + 120 − 150 + 20 = −10 V，所以 U<sub>ab<\/sub> = V<sub>a<\/sub> − V<sub>b<\/sub> = −10 V。<\/li><li><strong>由欧姆定律求电流：<\/strong>按图中 a → b 的箭头为正方向，I = U<sub>ab<\/sub>/R<sub>4<\/sub> = (−10)/10 = <strong>−1 A<\/strong>。<\/li><\/ol><p>负号表示实际电流与图中箭头相反，即实际电流大小为 <strong>1 A，方向从 b 流向 a<\/strong>。<\/p>", "short1": "\n<p><strong>题意：<\/strong>画出三相异步电动机的机械特性，并标明常用工作段。机械特性反映电磁转矩 <i>T<\/i> 与转速 <i>n<\/i> 的关系，图中以转矩为横轴、转速为纵轴。<\/p>\n<ol>\n<li><strong>同步点：<\/strong>当转差率 <i>s<\/i> = (<i>n<\/i><sub>0<\/sub> − <i>n<\/i>)/<i>n<\/i><sub>0<\/sub> = 0 时，理想情况下转子感应电动势为零，电磁转矩为零；曲线从 (<i>T<\/i> = 0，<i>n<\/i> = <i>n<\/i><sub>0<\/sub>) 出发。<\/li>\n<li><strong>常用稳定段：<\/strong>从同步点沿曲线向最大转矩点移动，随着负载转矩增大，转差率增大、转速略降。这个高转速段满足 0 &lt; <i>s<\/i> &lt; <i>s<\/i><sub>m<\/sub>，是常用稳定运行段；最大转矩点是稳定段边界。<\/li>\n<li><strong>低速段与启动点：<\/strong>越过最大转矩点继续降低转速，电磁转矩会下降；到转速为零时得到启动转矩 <i>T<\/i><sub>st<\/sub>。低速段通常不能作为恒转矩负载的稳定工作段。<\/li>\n<\/ol>\n<p><strong>为何高转速段稳定？<\/strong>负载转矩不变时，如果转速暂时下降，转差率增加，电磁转矩随之增大，会使电动机重新加速；转速暂时上升时则相反。这个反馈使工作点有恢复趋势。<\/p>", "short2": "\n<p><strong>题意：<\/strong>三相异步电动机带动恒定负载转矩运行，电源电压下降时，分析转矩、电流和转速的变化。假定电源频率不变。<\/p>\n<ol>\n<li><strong>下降瞬间：<\/strong>转子的机械惯性使转速来不及立即变化，转差率暂时近似不变。在同一转差率下，电磁转矩近似与电压平方成正比，即 <i>T<\/i><sub>e<\/sub> ∝ <i>U<\/i>²。因此电压下降后，电磁转矩立即减小。<\/li>\n<li><strong>过渡过程：<\/strong>这时电磁转矩小于负载转矩及损耗所需的转矩，电动机减速；同步转速因频率不变而不变，所以转差率 <i>s<\/i> = (<i>n<\/i><sub>0<\/sub> − <i>n<\/i>)/<i>n<\/i><sub>0<\/sub> 增大，与降压瞬间相比，转子感应电动势和转子电流随转差率增大而回升。<\/li>\n<li><strong>重新稳定后：<\/strong>如果下降后的最大转矩仍足以克服负载，电动机将在较低转速处达到新的平衡，电磁转矩重新约等于负载转矩与机械损耗转矩之和；在一般正常负载下，转子电流、定子电流通常增大，转速下降。<\/li>\n<\/ol>\n<p><strong>需要注意：<\/strong>轻载时，定子励磁电流也会随电压下降而减小，因此定子总电流不一定增加。如果下降后的最大电磁转矩低于负载需要，电动机不能恢复正常稳定运行，可能堵转。<\/p>", "calc5": "\n<p><strong>题意：<\/strong>求图中 a、b 端口的戴维宁等效电路。已知 <i>R<\/i><sub>1<\/sub> = 4 Ω、<i>R<\/i><sub>2<\/sub> = 4 Ω、<i>R<\/i><sub>3<\/sub> = 2 Ω，左侧电压源 2 V（上正下负），电流源 1 A 向上，右侧电压源 3 V（右正左负）。<\/p>\n<ol>\n<li><strong>求开路电压：<\/strong>将端口 a、b 开路，以 b 点为零电位，设中间上节点电位为 <i>V<\/i>。因为 a 端开路，<i>R<\/i><sub>3<\/sub> 中电流为零，所以其两端电压为零。<\/li>\n<li><strong>列节点电流方程：<\/strong>左支路电阻下端电位为 +2 V，向上节点注入的电流源为 1 A。由节点电流定律：<br>(<i>V<\/i> − 2)/4 + <i>V<\/i>/4 = 1。<br>两边乘以 4，得 2<i>V<\/i> − 2 = 4，故 <i>V<\/i> = 3 V。<\/li>\n<li><strong>考虑右侧电源极性：<\/strong>从上节点经过无压降的 <i>R<\/i><sub>3<\/sub>，再穿过 3 V 电源由负端到正端，电位上升 3 V。因此 <i>U<\/i><sub>oc<\/sub> = <i>U<\/i><sub>ab<\/sub> = 3 + 3 = <strong>6 V<\/strong>，a 端为正。<\/li>\n<li><strong>求等效电阻：<\/strong>独立电压源置零，用短路代替；独立电流源置零，用开路代替。从 a、b 端看进去，<i>R<\/i><sub>1<\/sub> 与 <i>R<\/i><sub>2<\/sub> 并联，再与 <i>R<\/i><sub>3<\/sub> 串联：<br><i>R<\/i><sub>th<\/sub> = <i>R<\/i><sub>3<\/sub> + (<i>R<\/i><sub>1<\/sub> ∥ <i>R<\/i><sub>2<\/sub>) = 2 + (4 × 4)/(4 + 4) = <strong>4 Ω<\/strong>。<\/li>\n<\/ol>\n<p><strong>结论：<\/strong>该端口等效为一个 <strong>6 V<\/strong> 理想电压源与 <strong>4 Ω<\/strong> 电阻串联；开路时 a 端比 b 端高 6 V。<\/p>", "motor-circuit-6": "\n<p><strong>题意：<\/strong>电压源 24 V，电流源 4 A 从左向右，<i>R<\/i><sub>1<\/sub> = 6 Ω、<i>R<\/i><sub>2<\/sub> = 3 Ω、<i>R<\/i><sub>3<\/sub> = 4 Ω。先求 <i>R<\/i><sub>L<\/sub> = 2 Ω 时负载电流，再求最大负载功率。<\/p>\n<ol>\n<li><strong>求端口开路电压：<\/strong>先断开负载，以 b 点为零电位，设 <i>R<\/i><sub>1<\/sub>、<i>R<\/i><sub>2<\/sub>、<i>R<\/i><sub>3<\/sub> 汇合点为 x。端口开路时，4 A 电流源送到 a 点的电流只能经 <i>R<\/i><sub>3<\/sub> 流回 x，因此这两个元件组成的支路对 x 点的净注入电流为零。x 点由 24 V 电源和 <i>R<\/i><sub>1<\/sub>、<i>R<\/i><sub>2<\/sub> 分压：<br><i>V<\/i><sub>x<\/sub> = 24 × 3/(6 + 3) = 8 V。<br>4 A 从 a 向 x 流过 <i>R<\/i><sub>3<\/sub>，故 <i>V<\/i><sub>a<\/sub> − <i>V<\/i><sub>x<\/sub> = 4 × 4 = 16 V，得到 <i>U<\/i><sub>th<\/sub> = <i>U<\/i><sub>ab<\/sub> = 8 + 16 = <strong>24 V<\/strong>。<\/li>\n<li><strong>求等效电阻：<\/strong>将独立电压源短路、独立电流源开路，从 a、b 端看进去：<br><i>R<\/i><sub>th<\/sub> = <i>R<\/i><sub>3<\/sub> + (<i>R<\/i><sub>1<\/sub> ∥ <i>R<\/i><sub>2<\/sub>) = 4 + (6 × 3)/(6 + 3) = <strong>6 Ω<\/strong>。<\/li>\n<li><strong>求原负载电流：<\/strong>接回 <i>R<\/i><sub>L<\/sub> = 2 Ω，等效电路为 24 V 电源串联 6 Ω 和 2 Ω：<br><i>I<\/i> = 24/(6 + 2) = <strong>3 A<\/strong>。为正值，实际方向与图示箭头一致，即从 a 向 b。<\/li>\n<li><strong>求最大功率：<\/strong>负载功率 <i>P<\/i><sub>L<\/sub> = <i>U<\/i><sub>th<\/sub>²<i>R<\/i><sub>L<\/sub>/(<i>R<\/i><sub>th<\/sub> + <i>R<\/i><sub>L<\/sub>)²。当 <i>R<\/i><sub>L<\/sub> = <i>R<\/i><sub>th<\/sub> = <strong>6 Ω<\/strong> 时取得最大值：<br><i>P<\/i><sub>max<\/sub> = <i>U<\/i><sub>th<\/sub>²/(4<i>R<\/i><sub>th<\/sub>) = 24²/(4 × 6) = <strong>24 W<\/strong>。<\/li>\n<\/ol>", "motor-problem-7": "\n<p><strong>已知：<\/strong>额定输出功率 <i>P<\/i><sub>N<\/sub> = 45 kW、额定转速 <i>n<\/i><sub>N<\/sub> = 1480 r/min、线电压 380 V、效率 η = 0.923、功率因数 cos φ = 0.88；额定运行时 Δ 接法，直接启动电流倍数 7.0、启动转矩倍数 1.9。<\/p>\n<ol>\n<li><strong>极数和转差率：<\/strong>额定转速接近且低于 1500 r/min，由题给表可知同步转速 <i>n<\/i><sub>0<\/sub> = 1500 r/min，极对数 <i>p<\/i> = 2，因此极数为 <strong>4 极<\/strong>。<br><i>s<\/i><sub>N<\/sub> = (1500 − 1480)/1500 = 0.01333 ≈ <strong>1.33%<\/strong>。<\/li>\n<li><strong>额定线电流：<\/strong>电动机铭牌功率是轴输出功率，先由 η = <i>P<\/i><sub>2<\/sub>/<i>P<\/i><sub>1<\/sub> 得输入功率 <i>P<\/i><sub>1<\/sub> = 45000/0.923 W。由 <i>P<\/i><sub>1<\/sub> = √3<i>U<\/i><sub>L<\/sub><i>I<\/i><sub>L<\/sub>cos φ：<br><i>I<\/i><sub>N<\/sub> = 45000/(√3 × 380 × 0.923 × 0.88) ≈ <strong>84.18 A<\/strong>。<\/li>\n<li><strong>额定轴转矩：<\/strong><i>T<\/i><sub>N<\/sub> = 9550<i>P<\/i><sub>N<\/sub>/<i>n<\/i><sub>N<\/sub> = 9550 × 45/1480 ≈ <strong>290.37 N·m<\/strong>。此处功率以 kW 代入，转速以 r/min 代入。<\/li>\n<li><strong>300 N·m 能否长期带动：<\/strong>300 N·m &gt; 290.37 N·m，已超过额定轴转矩，因此<strong>不适合长期运行<\/strong>。最大转矩倍数反映短时过载能力，不能直接作为长期额定负载的依据。<\/li>\n<li><strong>直接启动：<\/strong>启动线电流 <i>I<\/i><sub>st,Δ<\/sub> = 7<i>I<\/i><sub>N<\/sub> ≈ 7 × 84.18 = <strong>589.2 A<\/strong>，大于电路允许的 300 A。虽然启动转矩 <i>T<\/i><sub>st,Δ<\/sub> = 1.9<i>T<\/i><sub>N<\/sub> ≈ <strong>551.7 N·m<\/strong>，大于负载的 250 N·m，启动电流条件仍不满足，因此<strong>不能直接启动<\/strong>。<\/li>\n<li><strong>Y－Δ 启动：<\/strong>同一线电压下，Y 接启动时每相电压为 Δ 接时的 1/√3，启动转矩近似随相电压平方变化，线电流和启动转矩都约为 Δ 直接启动的 1/3。<br><i>I<\/i><sub>st,Y<\/sub> ≈ 589.2/3 = <strong>196.4 A<\/strong> &lt; 300 A；<br><i>T<\/i><sub>st,Y<\/sub> ≈ 551.7/3 = <strong>183.9 N·m<\/strong> &lt; 250 N·m。<br>虽然电流满足要求，启动转矩不足以带动该负载，故<strong>不能采用 Y－Δ 带此负载启动<\/strong>。<\/li>\n<\/ol>\n<p>注：上述为题目常用理想近似；实际能否加速到切换转速，还须比较整个加速过程中的电动机转矩与负载转矩。<\/p>"};
+function detail(html,shortAnswer){const e=document.createElement('details');e.className='worked-solution';e.open=true;const note=shortAnswer?'以下结合原题条件，说明答题思路。':'以下使用试卷原题数值；参数改变时，实时结果以交互计算区为准。';e.innerHTML='<summary>原题详细解答过程</summary><div class="worked-content"><p class="fixed-note">'+note+'</p>'+html+'</div>';return e;}
+for(const [id,html] of Object.entries(solutions)){
+ if(id==='short1'||id==='short2'){
+   const h=document.querySelectorAll('#short h3')[id==='short1'?0:1];if(!h)throw Error('缺少简答题 '+id);h.insertAdjacentElement('afterend',detail(html,true));
+ }else{const box=document.getElementById(id);if(!box)throw Error('缺少计算题 '+id);box.appendChild(detail(html));}
+}
+})();
+</script></body></html>
