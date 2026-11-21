@@ -1,57 +1,44 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#f6f7f2">
-  <meta name="description" content="ShareAnswer 习题答案库：搜索不同试卷中的题目、参考答案与解析。">
-  <title>ShareAnswer · 习题答案与解析</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="water/data.js?v=course-20261121" defer></script>
-  <script src="catalog.js?v=course-20261121" defer></script>
-  <script src="app.js" defer></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#003f2b">
+  <meta name="description" content="ShareAnswer 课程复习站，按课程浏览习题并搜索答案。">
+  <title>课程复习站 · ShareAnswer</title>
+  <link rel="stylesheet" href="station.css?v=20261121">
 </head>
 <body>
 <header class="site-header">
-  <div class="wrap navigation">
-    <a class="brand" href="#top" aria-label="ShareAnswer 首页"><span class="brand-icon" aria-hidden="true">s<span>.</span></span><span>share<strong>answer</strong><small>习题答案分享</small></span></a>
-    <nav class="nav-links" aria-label="主导航"><a href="#library">查找习题</a><a href="#papers">浏览试卷</a></nav>
-    <a class="nav-action" href="#papers">查看全部试卷 <span aria-hidden="true">↓</span></a>
-  </div>
+  <a class="identity" href="./"><img src="nnu-emblem.png" width="46" height="48" alt="南京师范大学校徽"><span><strong>ShareAnswer</strong><small>课程习题与答案分享</small></span></a>
+  <a class="header-link" href="search.html">搜索习题</a>
 </header>
-<main id="top">
-  <section class="home-intro wrap" aria-labelledby="hero-title">
-    <p class="eyebrow"><span class="dot" aria-hidden="true"></span> SHAREANSWER <span class="muted-number">/ 习题答案库</span></p>
-    <h1 id="hero-title">查找题目，<em>理解答案。</em></h1>
-    <p class="home-intro-text">搜索所有试卷中的题目、知识点和解析，也可以选择一套试卷开始复习。</p>
-    <div class="search-box">
-      <span class="search-icon" aria-hidden="true">⌕</span>
-      <label class="sr-only" for="search-input">搜索题目、知识点或答案</label>
-      <input id="search-input" type="search" placeholder="搜索题目、知识点或答案，例如：混凝、变压器" autocomplete="off" aria-controls="results">
-      <button id="clear-search" type="button" aria-label="清除搜索">清除</button>
-      <a class="search-go" href="#library">查看结果 ↓</a>
-    </div>
-    <div class="search-suggestions"><span>试试搜索</span><button type="button" data-query="混凝">混凝 ↗</button><button type="button" data-query="臭氧">臭氧 ↗</button><button type="button" data-query="变压器">变压器 ↗</button><button type="button" data-query="戴维宁">戴维宁 ↗</button></div>
-    <div id="papers" class="papers" aria-label="试卷入口">
-      <a class="paper-link paper-water" href="water/?source=chemical"><span class="paper-number">01 / WATER TREATMENT</span><strong>化学法习题</strong><span>选择、填空与简答 <b aria-hidden="true">↗</b></span></a>
-      <a class="paper-link paper-water" href="water/?source=physical"><span class="paper-number">02 / WATER TREATMENT</span><strong>物理化学法习题</strong><span>混凝、吸附与膜分离 <b aria-hidden="true">↗</b></span></a>
-      <a class="paper-link" href="electrical/"><span class="paper-number">03 / ELECTRICAL</span><strong>电工与电子技术</strong><span>题解、计算与交互电路 <b aria-hidden="true">↗</b></span></a>
-    </div>
+<main>
+  <section class="intro wrap" aria-labelledby="page-title">
+    <p class="eyebrow">SHAREANSWER / 课程复习站</p>
+    <div class="intro-heading"><div><h1 id="page-title">本学期课程</h1><p>选择课程，开始今天的复习。</p></div><p class="term-note">COURSE DEPARTURES<br><strong>复习信息</strong></p></div>
+    <form id="library" class="search" action="search.html" method="get" role="search"><label for="query">查找习题与答案</label><div><input id="query" name="q" type="search" placeholder="输入题目、课程或知识点，如：混凝" autocomplete="off"><button type="submit">搜索</button></div></form>
   </section>
-
-  <section class="library-section" id="library" aria-labelledby="library-title">
-    <div class="wrap">
-      <div class="library-heading"><div><p class="eyebrow">THE ANSWER LIBRARY <span class="muted-number">/ 02</span></p><h2 id="library-title">找到你想查的题。</h2></div><p>每一道题都有自己的位置。<br>输入关键词，或按题型浏览。</p></div>
-      <div class="library-toolbar"><div class="filters" aria-label="按题型筛选"><button class="filter active" type="button" data-type="all" aria-pressed="true">全部 <span data-count="all">—</span></button><button class="filter" type="button" data-type="fill" aria-pressed="false">填空 <span data-count="fill">—</span></button><button class="filter" type="button" data-type="choice" aria-pressed="false">选择 <span data-count="choice">—</span></button><button class="filter" type="button" data-type="short" aria-pressed="false">简答 <span data-count="short">—</span></button><button class="filter" type="button" data-type="calculation" aria-pressed="false">计算 <span data-count="calculation">—</span></button><button class="filter" type="button" data-type="judge" aria-pressed="false">判断 <span data-count="judge">—</span></button><button class="filter" type="button" data-type="term" aria-pressed="false">名词解释 <span data-count="term">—</span></button><button class="filter" type="button" data-type="essay" aria-pressed="false">论述 <span data-count="essay">—</span></button></div><label class="source-select">试卷 <select id="source-filter"><option value="all">全部试卷</option><option value="chemical">化学法习题</option><option value="physical">物理化学法习题</option><option value="electrical">电工与电子技术</option></select></label><p id="result-status" class="result-status" role="status" aria-live="polite">正在整理题目索引…</p></div>
-      <div id="results" class="results" aria-live="polite"></div>
-      <div id="empty-state" class="empty-state" hidden><span aria-hidden="true">⌕</span><h3>暂时没有找到相关题目</h3><p>试试更短的关键词，或查看整套试卷。</p><a href="#papers">查看全部试卷 ↗</a></div>
-      <p id="load-error" class="load-error" hidden>部分题目索引暂时无法载入，你仍可<a href="#papers">直接查看试卷</a>。</p>
-      <noscript><p class="load-error">搜索需要启用 JavaScript；也可以<a href="#papers">直接查看试卷</a>。</p></noscript>
-      <iframe id="catalog-source" src="electrical/?index=1" title="题目索引来源" tabindex="-1" aria-hidden="true" hidden></iframe>
+  <section id="papers" class="board-section wrap" aria-labelledby="board-title">
+    <div class="board-top"><div><p class="eyebrow">COURSE BOARD / 课程大屏</p><h2 id="board-title">课程复习信息</h2></div><p>已收录的课程可开始复习<br>其他课程资料持续整理中</p></div>
+    <div class="board" aria-label="本学期课程复习信息">
+      <div class="board-labels" aria-hidden="true"><span>序号</span><span>课程</span><span>资料状态</span><span>操作</span></div>
+      <ol class="departures">
+        <li class="departure"><span class="no">01</span><span class="course">环境经济学</span><span class="status pending">待收录</span><span class="action muted">准备中</span></li>
+        <li class="departure available"><span class="no">02</span><span class="course">水污染控制工程</span><span class="status ready">2 份习题</span><details class="action details"><summary>开始复习</summary><div class="paper-options"><a href="water/?source=chemical">化学法习题</a><a href="water/?source=physical">物理化学法习题</a><a href="water/">查看全部水处理习题</a></div></details></li>
+        <li class="departure"><span class="no">03</span><span class="course">水污染控制工程实训</span><span class="status pending">待收录</span><span class="action muted">准备中</span></li>
+        <li class="departure"><span class="no">04</span><span class="course">语料库语言学</span><span class="status pending">后续接入</span><span class="action muted">准备中</span></li>
+        <li class="departure"><span class="no">05</span><span class="course">环境大数据分析</span><span class="status pending">待收录</span><span class="action muted">准备中</span></li>
+        <li class="departure"><span class="no">06</span><span class="course">环境法律法规</span><span class="status pending">待收录</span><span class="action muted">准备中</span></li>
+        <li class="departure"><span class="no">07</span><span class="course">基于 R 的数据科学和数据美学</span><span class="status pending">待收录</span><span class="action muted">准备中</span></li>
+        <li class="departure"><span class="no">08</span><span class="course">大气污染控制工程</span><span class="status pending">待收录</span><span class="action muted">准备中</span></li>
+        <li class="departure"><span class="no">09</span><span class="course">大气污染控制工程实训</span><span class="status pending">待收录</span><span class="action muted">准备中</span></li>
+        <li class="departure available"><span class="no">10</span><span class="course">电工与电子技术</span><span class="status ready">习题与解析</span><a class="action go" href="electrical/">开始复习</a></li>
+      </ol>
     </div>
+    <p class="board-foot">选择“开始复习”查看已收录的资料；也可以通过搜索查找具体题目。</p>
   </section>
-  <section class="note-band"><div class="wrap note-inner"><span class="note-mark" aria-hidden="true">✳</span><p>答案是起点，理解才是下一步。</p><span>KEEP ASKING, KEEP LEARNING</span></div></section>
 </main>
-<footer class="site-footer"><div class="wrap footer-inner"><div><a class="footer-brand" href="#top">share<strong>answer</strong><span>.</span></a><p>分享思路，让每次学习都有迹可循。</p></div><div class="footer-meta"><a href="#top">回到顶部 ↑</a><span>MADE FOR CURIOUS MINDS</span></div></div></footer>
+<footer class="wrap footer"><span>ShareAnswer · 课程习题与答案分享</span><a href="search.html">搜索已收录的题目</a></footer>
 </body>
 </html>

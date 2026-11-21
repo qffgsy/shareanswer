@@ -13,6 +13,7 @@
   var electricalItems = [];
   var items = waterItems.slice();
   var activeType = 'all';
+  field.value = new URLSearchParams(location.search).get('q') || '';
   var loaded = false;
 
   function setType(type) {
