@@ -40,9 +40,23 @@
 
   function matches(item, query) {
     var words = clean(query).toLocaleLowerCase().split(' ').filter(Boolean);
-    var text = clean([item.number, item.title, item.search].join(' ')).toLocaleLowerCase();
+    var text = clean([item.subject, item.number, item.title, item.search].join(' ')).toLocaleLowerCase();
     return words.every(function (word) { return text.indexOf(word) !== -1; });
   }
 
-  window.ShareAnswerCatalog = { extract: extract, matches: matches };
+  function extractWater(data) {
+    var types = { '选择题': 'choice', '填空题': 'fill', '判断改错题': 'judge',
+      '名词解释': 'term', '简答题': 'short', '论述题': 'essay' };
+    return (Array.isArray(data) ? data : []).map(function (question) {
+      var subject = question.source === 'chemical' ? '化学法习题' : '物理化学法习题';
+      return {
+        id: question.id, type: types[question.section], source: question.source,
+        number: '第 ' + question.number + ' 题', title: clean(question.prompt), subject: subject,
+        search: clean([subject, question.section, question.prompt, question.answer, question.note,
+          (question.options || []).map(function (option) { return option.key + ' ' + option.text; }).join(' ')].join(' '))
+      };
+    }).filter(function (item) { return item.id && item.title && item.type; });
+  }
+
+  window.ShareAnswerCatalog = { extract: extract, extractWater: extractWater, matches: matches };
 }());

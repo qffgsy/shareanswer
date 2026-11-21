@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f7f2">
+  <meta name="description" content="化学法与物理化学法习题交互式练习，包含参考答案与解析。">
+  <title>水处理习题 · ShareAnswer</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+<header class="site-header"><div class="shell nav"><a class="brand" href="../" aria-label="返回 ShareAnswer 首页"><span class="brand-icon">s<span>.</span></span><span>share<strong>answer</strong><small>习题答案分享</small></span></a><nav aria-label="主导航"><a href="../">← 返回题库</a><a href="../electrical/">电工与电子技术 ↗</a></nav></div></header>
+<main class="shell">
+  <section class="hero" aria-labelledby="page-title">
+    <div><p class="eyebrow"><span class="dot"></span> WATER TREATMENT / STUDY NOTES</p><h1 id="page-title">水处理习题<span>交互练习</span></h1><p class="lead">从消毒、中和到混凝与膜分离。先试着回答，再展开解析，按自己的节奏复习。</p><div class="hero-pills"><span>化学法</span><span>物理化学法</span><span>原题与解析</span></div></div>
+    <aside class="progress-box" aria-label="学习进度"><div class="progress-top"><span>YOUR PROGRESS</span><span aria-hidden="true">✳</span></div><p class="progress-heading">已学习 <strong id="completed-count">0</strong><span id="total-count"> / 64</span></p><div class="progress-track"><span id="progress-fill"></span></div><p id="score-summary">完成选择题后，这里会记录作答情况。</p><p class="private-note">进度保存在当前设备的浏览器中</p></aside>
+  </section>
+  <section class="study" aria-labelledby="study-title">
+    <div class="study-heading"><div><p class="eyebrow">THE QUESTION SET / 题目练习</p><h2 id="study-title">找到想练的题。</h2></div><p>部分原题存在歧义，已保留说明，<br>按参考题处理，不计入自动评分。</p></div>
+    <div class="controls">
+      <label class="search-label" for="search">⌕ <span class="sr-only">搜索题目或解析</span><input id="search" type="search" placeholder="搜索题目、知识点或解析，例如：混凝、余氯" autocomplete="off"><button id="clear-search" type="button" aria-label="清除搜索">清除</button></label>
+      <div class="control-line"><div class="filters" role="group" aria-label="按题目来源筛选"><button type="button" class="chip active" data-source="all" aria-pressed="true">全部习题</button><button type="button" class="chip" data-source="chemical" aria-pressed="false">化学法</button><button type="button" class="chip" data-source="physical" aria-pressed="false">物理化学法</button></div><label class="select-label">题型 <select id="section-filter"><option value="all">全部题型</option></select></label></div>
+      <div class="control-line lower"><p id="result-count" role="status" aria-live="polite">正在加载习题…</p><div class="tools"><button type="button" id="expand-all">展开全部解析</button><button type="button" id="collapse-all">收起解析</button><button type="button" class="reset" id="reset">重置进度</button></div></div>
+    </div>
+    <div id="questions" class="questions"></div><div id="empty" class="empty" hidden><strong>没有找到相关题目</strong><p>试试更短的关键词，或切换题目分类。</p><button type="button" id="clear-filters">清除筛选</button></div>
+    <noscript><p class="warning">交互练习需要启用 JavaScript。</p></noscript>
+  </section>
+</main>
+<footer><div class="shell footer"><div><a href="../" class="footer-brand">share<strong>answer</strong><span>.</span></a><p>分享思路，让每次学习都有迹可循。</p></div><a href="#page-title">回到顶部 ↑</a></div></footer>
+</body></html>
