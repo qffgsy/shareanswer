@@ -58,5 +58,24 @@
     }).filter(function (item) { return item.id && item.title && item.type; });
   }
 
-  window.ShareAnswerCatalog = { extract: extract, extractWater: extractWater, matches: matches };
+  // 课程复习页的七项作业和法典思维导图；锚点与原页面保持一致。
+  function extractLaw() {
+    var entries = [
+      ['介绍一部家乡的地方环境保护法规，并体现其地方特色。', '安庆市 长江江豚保护条例 地方立法 生物多样性'],
+      ['比较《环境保护法》与《生态环境法典》基本规定的异同，列举新旧法之间的差异。', '新旧法律比较 法典 环保法 环境法'],
+      ['结合环境专业知识，谈谈环境专业如何支撑监督管理智能化发展。', '环境监管 遥感 监测 大数据 人工智能'],
+      ['介绍一部家乡的环境保护标准，并与国家标准进行比较。', '安徽 水泥 工业大气污染物排放标准 颗粒物 二氧化硫 氮氧化物 DB34 3576 GB4915'],
+      ['从生态环境法典编纂的角度，分析为什么“污染防治”与“生态保护”需要独立成编。', '环境立法体系 生态系统 保护 污染治理'],
+      ['对于新能源车企与发电厂、电池生产企业，从立法角度谈谈如何调整结构，实现全链条大气污染控制？', '新能源汽车 电池 发电厂 全生命周期 绿色供应链'],
+      ['辨析达“标”排放与水体达“标”中“标”的差异。', '达标排放 水环境质量标准 污染物排放标准 地表水'],
+      ['《生态环境法典》总则编包含哪些内容？其法律体系如何构成？', '法典导图 章节 监督管理 分区管控 标准监测 生态环境影响评价 公众参与']
+    ];
+    return entries.map(function (entry, index) {
+      return { id: 'q' + (index + 1), source: 'environmental-law', subject: '环境法律法规',
+        type: 'coursework', number: index === 7 ? '学习任务' : '第 ' + (index + 1) + ' 题',
+        title: entry[0], search: clean(entry.join(' ')) };
+    });
+  }
+
+  window.ShareAnswerCatalog = { extract: extract, extractWater: extractWater, extractLaw: extractLaw, matches: matches };
 }());

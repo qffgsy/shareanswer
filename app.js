@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var labels = { fill: '填空题', choice: '选择题', short: '简答题', calculation: '计算题', judge: '判断题', term: '名词解释', essay: '论述题' };
+  var labels = { fill: '填空题', choice: '选择题', short: '简答题', calculation: '计算题', judge: '判断题', term: '名词解释', essay: '论述题', coursework: '课程作业与学习任务' };
   var field = document.getElementById('search-input');
   var results = document.getElementById('results');
   var empty = document.getElementById('empty-state');
@@ -11,7 +11,8 @@
   var sourceFilter = document.getElementById('source-filter');
   var waterItems = window.ShareAnswerCatalog.extractWater(window.WATER_QUIZ_DATA);
   var electricalItems = [];
-  var items = waterItems.slice();
+  var lawItems = window.ShareAnswerCatalog.extractLaw();
+  var items = waterItems.concat(lawItems);
   var activeType = 'all';
   field.value = new URLSearchParams(location.search).get('q') || '';
   var loaded = false;
@@ -26,7 +27,7 @@
   }
 
   function updateCounts() {
-    ['all', 'fill', 'choice', 'short', 'calculation', 'judge', 'term', 'essay'].forEach(function (type) {
+    ['all', 'fill', 'choice', 'short', 'calculation', 'judge', 'term', 'essay', 'coursework'].forEach(function (type) {
       document.querySelector('[data-count="' + type + '"]').textContent =
         type === 'all' ? items.length : items.filter(function (item) { return item.type === type; }).length;
     });
@@ -46,7 +47,8 @@
       paperMatches = [
         {source: 'chemical', title: '化学法习题', href: 'water/?source=chemical'},
         {source: 'physical', title: '物理化学法习题', href: 'water/?source=physical'},
-        {source: 'electrical', title: '电工与电子技术', href: 'electrical/'}
+        {source: 'electrical', title: '电工与电子技术', href: 'electrical/'},
+        {source: 'environmental-law', title: '环境法律法规复习', href: 'environmental-law/'}
       ].filter(function (paper) {
         return (sourceFilter.value === 'all' || sourceFilter.value === paper.source) &&
           paper.title.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) !== -1;
@@ -61,11 +63,11 @@
       var preview = document.createElement('p'); preview.textContent = '打开整份试卷 ↗';
       link.append(meta, title, preview); results.appendChild(link);
     });
-    status.textContent = '显示 ' + matching.length + ' / ' + items.length + ' 道题';
+    status.textContent = '显示 ' + matching.length + ' / ' + items.length + ' 条资料';
     matching.forEach(function (item) {
       var link = document.createElement('a');
       link.className = 'result-card';
-      link.href = (item.source === 'electrical' ? 'electrical/#' : 'water/#') + encodeURIComponent(item.id);
+      link.href = (item.source === 'electrical' ? 'electrical/#' : item.source === 'environmental-law' ? 'environmental-law/#' : 'water/#') + encodeURIComponent(item.id);
       var meta = document.createElement('span');
       meta.className = 'result-meta';
       meta.textContent = item.subject + '  /  ' + labels[item.type] + '  /  ' + item.number;
@@ -97,7 +99,7 @@
       if (!doc || !doc.querySelector('#fill .quiz-card')) { showError(); return; }
       electricalItems = window.ShareAnswerCatalog.extract(doc).filter(function (item) { return item.id && item.title; });
       electricalItems.forEach(function (item) { item.source = 'electrical'; item.subject = '电工与电子技术'; });
-      items = waterItems.concat(electricalItems);
+      items = waterItems.concat(electricalItems, lawItems);
       loaded = !!items.length; error.hidden = !!(electricalItems.length && waterItems.length);
       updateCounts(); render();
     } catch (exception) { showError(); }
