@@ -52,7 +52,7 @@
       return {
         id: question.id, type: types[question.section], source: question.source,
         number: '第 ' + question.number + ' 题', title: clean(question.prompt), subject: subject,
-        search: clean([subject, question.section, question.prompt, question.answer, question.note,
+        search: clean([subject, question.section, question.prompt, question.answer, question.note, question.courseSource,
           (question.options || []).map(function (option) { return option.key + ' ' + option.text; }).join(' ')].join(' '))
       };
     }).filter(function (item) { return item.id && item.title && item.type; });

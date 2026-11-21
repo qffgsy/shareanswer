@@ -93,6 +93,7 @@
     card.appendChild(toggle);
     if (s.revealed) {
       card.appendChild(answerBody(q.answer));
+      if (q.courseSource) card.appendChild(node('p', 'course-reference', '课件参考：' + q.courseSource));
       if (q.note) card.appendChild(answerBody(q.note));
       if (q.grading === 'self' || q.grading === 'review') {
         const group = node('div', 'self-controls'); group.appendChild(node('span', '', '自评：'));
@@ -114,7 +115,7 @@
     const visible = items.filter(q => {
       if (source !== 'all' && q.source !== source) return false;
       if (section !== 'all' && q.section !== section) return false;
-      const text = [q.prompt, q.answer, q.section, sourceNames[q.source], ...q.options.map(o => o.key + ' ' + o.text)].join(' ').toLocaleLowerCase();
+      const text = [q.prompt, q.answer, q.courseSource, q.section, sourceNames[q.source], ...q.options.map(o => o.key + ' ' + o.text)].join(' ').toLocaleLowerCase();
       return terms.every(term => text.includes(term));
     });
     const fragment = document.createDocumentFragment(); visible.forEach(q => fragment.appendChild(renderCard(q)));
