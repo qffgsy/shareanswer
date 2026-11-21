@@ -3,42 +3,61 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#003f2b">
+  <meta name="theme-color" content="#315c50">
   <meta name="description" content="ShareAnswer 课程复习站，按课程浏览习题并搜索答案。">
   <title>课程复习站 · ShareAnswer</title>
-  <link rel="stylesheet" href="station.css?v=20261121">
+  <link rel="stylesheet" href="station.css?v=nnu-20261121">
 </head>
 <body>
 <header class="site-header">
-  <a class="identity" href="./"><img src="nnu-emblem.png" width="46" height="48" alt="南京师范大学校徽"><span><strong>ShareAnswer</strong><small>课程习题与答案分享</small></span></a>
-  <a class="header-link" href="search.html">搜索习题</a>
+  <div class="header-inner wrap">
+    <a class="identity" href="./"><img src="nnu-emblem.png" width="50" height="52" alt="南京师范大学校徽"><span><strong>ShareAnswer</strong><small>个人课程习题分享</small></span></a>
+    <nav class="navigation" aria-label="主导航"><a href="#papers">课程大屏</a><a href="#library">快速查询</a><a href="search.html">全部习题</a></nav>
+  </div>
 </header>
 <main>
-  <section class="intro wrap" aria-labelledby="page-title">
-    <p class="eyebrow">SHAREANSWER / 课程复习站</p>
-    <div class="intro-heading"><div><h1 id="page-title">本学期课程</h1><p>选择课程，开始今天的复习。</p></div><p class="term-note">COURSE DEPARTURES<br><strong>复习信息</strong></p></div>
-    <form id="library" class="search" action="search.html" method="get" role="search"><label for="query">查找习题与答案</label><div><input id="query" name="q" type="search" placeholder="输入题目、课程或知识点，如：混凝" autocomplete="off"><button type="submit">搜索</button></div></form>
+  <section class="hero" aria-labelledby="page-title">
+    <div class="hero-inner wrap">
+      <p class="eyebrow hero-eyebrow"><span></span> SHAREANSWER · COURSE REVIEW</p>
+      <h1 id="page-title">在这里，<br>开始你的课程复习</h1>
+      <p class="hero-copy">从本学期的课程出发，查找习题、梳理知识，<br class="desktop-only">让每一次复习都有迹可循。</p>
+      <div class="hero-actions"><a class="hero-button" href="#papers">查看课程大屏</a><a class="hero-text-link" href="search.html">浏览全部习题 <span aria-hidden="true">›</span></a></div>
+      <p class="hero-caption">CAMPUS LIFE <span>·</span> 学习，从这里出发</p>
+    </div>
+  </section>
+  <section class="overview wrap" aria-label="课程与习题概览">
+    <div class="overview-intro"><span class="section-mark">01 / QUICK SEARCH</span><h2>快速找到所需资料</h2><p>按课程或知识点，查找已经收录的习题与解析。</p></div>
+    <form id="library" class="search" action="search.html" method="get" role="search"><label for="query">搜索习题与答案</label><div class="search-row"><input id="query" name="q" type="search" placeholder="输入题目、课程或知识点，如：混凝" autocomplete="off"><button type="submit">搜索习题</button></div></form>
   </section>
   <section id="papers" class="board-section wrap" aria-labelledby="board-title">
-    <div class="board-top"><div><p class="eyebrow">COURSE BOARD / 课程大屏</p><h2 id="board-title">课程复习信息</h2></div><p>已收录的课程可开始复习<br>其他课程资料持续整理中</p></div>
+    <div class="section-heading"><div><p class="section-mark">02 / COURSE DEPARTURES</p><h2 id="board-title">本学期课程大屏</h2><p>选择课程，开启今天的复习旅程。</p></div><div class="board-key"><span class="key-dot"></span>资料已收录 <span class="key-divider"></span> 课件、课本和习题持续补充</div></div>
     <div class="board" aria-label="本学期课程复习信息">
-      <div class="board-labels" aria-hidden="true"><span>序号</span><span>课程</span><span>资料状态</span><span>操作</span></div>
+      <div class="board-banner"><div><span class="board-icon" aria-hidden="true">▦</span><strong>课程复习信息</strong><span class="board-english">COURSE INFORMATION</span></div><span class="board-count">本学期 · 10 门课程</span></div>
+      <div class="board-labels" aria-hidden="true"><span>序号</span><span>课程名称</span><span>资料状态</span><span>复习入口</span></div>
       <ol class="departures">
-        <li class="departure"><span class="no">01</span><span class="course">环境经济学</span><span class="status pending">待收录</span><span class="action muted">准备中</span></li>
-        <li class="departure available"><span class="no">02</span><span class="course">水污染控制工程</span><span class="status ready">2 份习题</span><details class="action details"><summary>开始复习</summary><div class="paper-options"><a href="water/?source=chemical">化学法习题</a><a href="water/?source=physical">物理化学法习题</a><a href="water/">查看全部水处理习题</a></div></details></li>
-        <li class="departure"><span class="no">03</span><span class="course">水污染控制工程实训</span><span class="status pending">待收录</span><span class="action muted">准备中</span></li>
-        <li class="departure"><span class="no">04</span><span class="course">语料库语言学</span><span class="status pending">后续接入</span><span class="action muted">准备中</span></li>
-        <li class="departure"><span class="no">05</span><span class="course">环境大数据分析</span><span class="status pending">待收录</span><span class="action muted">准备中</span></li>
-        <li class="departure"><span class="no">06</span><span class="course">环境法律法规</span><span class="status pending">待收录</span><span class="action muted">准备中</span></li>
-        <li class="departure"><span class="no">07</span><span class="course">基于 R 的数据科学和数据美学</span><span class="status pending">待收录</span><span class="action muted">准备中</span></li>
-        <li class="departure"><span class="no">08</span><span class="course">大气污染控制工程</span><span class="status pending">待收录</span><span class="action muted">准备中</span></li>
-        <li class="departure"><span class="no">09</span><span class="course">大气污染控制工程实训</span><span class="status pending">待收录</span><span class="action muted">准备中</span></li>
-        <li class="departure available"><span class="no">10</span><span class="course">电工与电子技术</span><span class="status ready">习题与解析</span><a class="action go" href="electrical/">开始复习</a></li>
+        <li class="departure"><span class="no">01</span><span class="course">环境经济学</span><span class="status pending">待收录</span><details class="action details"><summary aria-label="开始复习：环境经济学">开始复习</summary><div class="paper-options"><div class="option-title">环境经济学</div><section class="resource-group"><strong>课件</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>课本</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>习题解答</strong><span class="empty">待补充</span></section></div></details></li>
+        <li class="departure available"><span class="no">02</span><span class="course">水污染控制工程</span><span class="status ready">2 份习题</span><details class="action details"><summary aria-label="开始复习：水污染控制工程">开始复习</summary><div class="paper-options"><div class="option-title">水污染控制工程</div><section class="resource-group"><strong>课件</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>课本</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>习题解答</strong><a href="water/?source=chemical">化学法习题</a><a href="water/?source=physical">物理化学法习题</a><a href="water/">查看全部水处理习题</a></section></div></details></li>
+        <li class="departure"><span class="no">03</span><span class="course">水污染控制工程实训</span><span class="status pending">待收录</span><details class="action details"><summary aria-label="开始复习：水污染控制工程实训">开始复习</summary><div class="paper-options"><div class="option-title">水污染控制工程实训</div><section class="resource-group"><strong>课件</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>课本</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>习题解答</strong><span class="empty">待补充</span></section></div></details></li>
+        <li class="departure"><span class="no">04</span><span class="course">语料库语言学</span><span class="status pending">后续接入</span><details class="action details"><summary aria-label="开始复习：语料库语言学">开始复习</summary><div class="paper-options"><div class="option-title">语料库语言学</div><section class="resource-group"><strong>课件</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>课本</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>习题解答</strong><span class="empty">待补充</span></section><span class="empty">语料库后续接入</span></div></details></li>
+        <li class="departure"><span class="no">05</span><span class="course">环境大数据分析</span><span class="status pending">待收录</span><details class="action details"><summary aria-label="开始复习：环境大数据分析">开始复习</summary><div class="paper-options"><div class="option-title">环境大数据分析</div><section class="resource-group"><strong>课件</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>课本</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>习题解答</strong><span class="empty">待补充</span></section></div></details></li>
+        <li class="departure"><span class="no">06</span><span class="course">环境法律法规</span><span class="status pending">待收录</span><details class="action details"><summary aria-label="开始复习：环境法律法规">开始复习</summary><div class="paper-options"><div class="option-title">环境法律法规</div><section class="resource-group"><strong>课件</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>课本</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>习题解答</strong><span class="empty">待补充</span></section></div></details></li>
+        <li class="departure"><span class="no">07</span><span class="course">基于 R 的数据科学和数据美学</span><span class="status pending">待收录</span><details class="action details"><summary aria-label="开始复习：基于 R 的数据科学和数据美学">开始复习</summary><div class="paper-options"><div class="option-title">基于 R 的数据科学和数据美学</div><section class="resource-group"><strong>课件</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>课本</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>习题解答</strong><span class="empty">待补充</span></section></div></details></li>
+        <li class="departure"><span class="no">08</span><span class="course">大气污染控制工程</span><span class="status pending">待收录</span><details class="action details"><summary aria-label="开始复习：大气污染控制工程">开始复习</summary><div class="paper-options"><div class="option-title">大气污染控制工程</div><section class="resource-group"><strong>课件</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>课本</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>习题解答</strong><span class="empty">待补充</span></section></div></details></li>
+        <li class="departure"><span class="no">09</span><span class="course">大气污染控制工程实训</span><span class="status pending">待收录</span><details class="action details"><summary aria-label="开始复习：大气污染控制工程实训">开始复习</summary><div class="paper-options"><div class="option-title">大气污染控制工程实训</div><section class="resource-group"><strong>课件</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>课本</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>习题解答</strong><span class="empty">待补充</span></section></div></details></li>
+        <li class="departure available"><span class="no">10</span><span class="course">电工与电子技术</span><span class="status ready">习题与解析</span><details class="action details"><summary aria-label="开始复习：电工与电子技术">开始复习</summary><div class="paper-options"><div class="option-title">电工与电子技术</div><section class="resource-group"><strong>课件</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>课本</strong><span class="empty">待补充</span></section><section class="resource-group"><strong>习题解答</strong><a href="electrical/">查看习题与解析</a></section></div></details></li>
       </ol>
+      <div class="board-foot"><span>选择“开始复习”查看课程资料与收录情况</span><a href="search.html">搜索所有已收录题目 <span aria-hidden="true">›</span></a></div>
     </div>
-    <p class="board-foot">选择“开始复习”查看已收录的资料；也可以通过搜索查找具体题目。</p>
   </section>
+  <section class="resource-strip wrap" aria-labelledby="resource-title"><div><p class="section-mark">03 / STUDY RESOURCES</p><h2 id="resource-title">从这里继续探索</h2></div><a href="water/" class="resource"><span class="resource-number">01</span><span><strong>水污染控制工程</strong><small>化学法与物理化学法习题</small></span><b aria-hidden="true">›</b></a><a href="electrical/" class="resource"><span class="resource-number">02</span><span><strong>电工与电子技术</strong><small>试题与交互式解析</small></span><b aria-hidden="true">›</b></a></section>
 </main>
-<footer class="wrap footer"><span>ShareAnswer · 课程习题与答案分享</span><a href="search.html">搜索已收录的题目</a></footer>
+<footer class="site-footer"><div class="wrap footer"><div><strong>ShareAnswer</strong><p>个人学习资料分享 · 把知识留给下一次复习</p><small>校园图片选自用户提供的学校演示文稿</small></div><div class="footer-links"><a href="#papers">课程大屏</a><a href="search.html">搜索习题</a></div></div></footer>
+<script>
+  document.querySelectorAll('.details').forEach(function (item) {
+    item.addEventListener('toggle', function () {
+      if (item.open) document.querySelectorAll('.details[open]').forEach(function (other) { if (other !== item) other.open = false; });
+    });
+  });
+</script>
 </body>
 </html>
