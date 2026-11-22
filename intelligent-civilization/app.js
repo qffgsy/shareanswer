@@ -51,6 +51,85 @@
     clearFilters();
     requestAnimationFrame(function () { target.scrollIntoView({block:'start'}); });
   }
+  function addExercise(card, question) {
+    var isMultiple = question.type === '多选题';
+    var isJudge = question.type === '判断题';
+    var options = isJudge ? [{label: '对', text: '对'}, {label: '错', text: '错'}] : (question.options || []);
+    var raw = String(question.answer || '').trim().toUpperCase();
+    var answer = isJudge ? (raw === '对' || raw === '错' ? [raw] : []) :
+      (/^[A-Z]+$/.test(raw) ? raw.split('') : []);
+    var valid = answer.length > 0 && new Set(answer).size === answer.length &&
+      answer.every(function (value) { return options.some(function (opt) { return opt.label === value; }); }) &&
+      (isMultiple ? answer.length > 1 : answer.length === 1);
+    var group = element('fieldset', undefined, 'exercise');
+    group.appendChild(element('legend', isMultiple ? '请选择所有正确选项' : '请选择一个选项'));
+    var choices = element('div', undefined, 'choices');
+    options.forEach(function (opt) {
+      var label = element('label', undefined, 'choice');
+      var input = document.createElement('input');
+      input.type = isMultiple ? 'checkbox' : 'radio';
+      input.name = card.id;
+      input.value = opt.label;
+      var caption = isJudge ? opt.text : opt.label + '. ' + opt.text;
+      label.append(input, element('span', caption));
+      choices.appendChild(label);
+    });
+    group.appendChild(choices);
+    var actions = element('div', undefined, 'exercise-actions');
+    var submit;
+    if (isMultiple) {
+      submit = element('button', '提交答案', 'submit-answer');
+      submit.type = 'button';
+      actions.appendChild(submit);
+    }
+    var reset = element('button', '重做本题', 'reset-answer');
+    reset.type = 'button';
+    reset.hidden = true;
+    actions.appendChild(reset);
+    group.appendChild(actions);
+    var feedback = element('div', undefined, 'feedback');
+    feedback.setAttribute('role', 'status');
+    feedback.setAttribute('aria-live', 'polite');
+    feedback.hidden = true;
+    group.appendChild(feedback);
+    function clearFeedback() {
+      feedback.hidden = true;
+      feedback.replaceChildren();
+      feedback.className = 'feedback';
+      reset.hidden = true;
+    }
+    function assess() {
+      var selected = Array.from(group.querySelectorAll('input:checked')).map(function (input) { return input.value; });
+      feedback.hidden = false;
+      feedback.replaceChildren();
+      feedback.className = 'feedback';
+      if (!selected.length) {
+        feedback.appendChild(element('strong', '请先选择答案。'));
+        return;
+      }
+      reset.hidden = false;
+      if (!valid) {
+        feedback.classList.add('review');
+        feedback.appendChild(element('strong', '原记录无法自动判定，请结合课程资料核对。'));
+      } else {
+        var correct = selected.length === answer.length && selected.every(function (value) { return answer.indexOf(value) !== -1; });
+        feedback.classList.add(correct ? 'correct' : 'incorrect');
+        feedback.appendChild(element('strong', correct ? '与历史记录一致' : '与历史记录不一致'));
+      }
+      feedback.appendChild(element('p', '历史原记录：' + (question.answer || '无')));
+      if (question.note) feedback.appendChild(element('p', '辨析：' + question.note, 'feedback-note'));
+    }
+    choices.addEventListener('change', function () {
+      if (isMultiple) clearFeedback();
+      else assess();
+    });
+    if (submit) submit.addEventListener('click', assess);
+    reset.addEventListener('click', function () {
+      group.querySelectorAll('input').forEach(function (input) { input.checked = false; });
+      clearFeedback();
+    });
+    card.appendChild(group);
+  }
   fetch('questions.json').then(function (response) {
     if (!response.ok) throw new Error('题库加载失败');
     return response.json();
@@ -76,11 +155,7 @@
           var card = element('article', undefined, 'card');
           card.id = 'question-' + section.id.replace(/\./g, '-') + '-' + question.number;
           card.append(element('div', section.id + ' · 第 ' + question.number + ' 题 · ' + question.type, 'tag'), element('p', question.stem, 'stem'));
-          if (question.options && question.options.length) {
-            var list = element('ul', undefined, 'options');
-            question.options.forEach(function (opt) { list.appendChild(element('li', opt.label + '. ' + opt.text)); });
-            card.appendChild(list);
-          }
+          addExercise(card, question);
           var details = element('details');
           details.append(element('summary', '查看原记录与辨析'), element('p', '原记录：' + question.answer, 'answer'));
           if (question.note) details.appendChild(element('p', '辨析：' + question.note, 'note'));
