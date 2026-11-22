@@ -77,5 +77,27 @@
     });
   }
 
-  window.ShareAnswerCatalog = { extract: extract, extractWater: extractWater, extractLaw: extractLaw, matches: matches };
+  function extractCivilization(data) {
+    var items = [];
+    (data.chapters || []).forEach(function (chapter) {
+      (chapter.sections || []).forEach(function (section) {
+        (section.questions || []).forEach(function (question) {
+          var type = question.type === '判断题' ? 'judge' :
+            (question.type === '单选题' || question.type === '多选题') ? 'choice' : null;
+          if (!type || !section.id || !question.number || !question.stem) return;
+          items.push({
+            id: 'question-' + String(section.id).replace(/\./g, '-') + '-' + question.number,
+            source: 'intelligent-civilization', subject: '智能文明', type: type,
+            number: section.id + ' / 第 ' + question.number + ' 题', title: clean(question.stem),
+            search: clean(['智能文明', chapter.title, section.title, section.summary, question.type,
+              question.stem, question.answer, question.note,
+              (question.options || []).map(function (option) { return option.label + ' ' + option.text; }).join(' ')].join(' '))
+          });
+        });
+      });
+    });
+    return items;
+  }
+
+  window.ShareAnswerCatalog = { extract: extract, extractWater: extractWater, extractLaw: extractLaw, extractCivilization: extractCivilization, matches: matches };
 }());
