@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="按篇目、正文片段及语法功能检索初高中古诗文，查看原文、项目释读与出处。">
+<title>初高中古诗文语料库</title><link rel="stylesheet" href="assets/style.css?v=ffa3d48390a4">
+</head><body>
+<header><a href="../" class="home-link">← 课程首页</a><div class="eyebrow">ShareAnswer · 语料库语言学</div><h1>初高中古诗文语料库</h1><p id="headline">正在载入篇目…</p></header>
+<section aria-label="检索与筛选">
+<div class="controls">
+<input type="search" id="query" aria-label="检索关键词" placeholder="搜索篇名、字词、语法或原文片段">
+<select id="searchScope" aria-label="检索范围"><option value="reverse">综合与反向检索</option><option value="text">仅搜索正文</option><option value="all">篇名、作者、正文及释读</option></select>
+<select id="stage" aria-label="学段"><option value="">全部学段</option></select>
+<select id="volume" aria-label="册次"><option value="">全部册次</option></select>
+<select id="genre" aria-label="体裁"><option value="">全部体裁</option></select>
+<select id="collection" aria-label="收录范围"><option value="">全部收录</option></select>
+<label class="check"><input id="annotatedOnly" type="checkbox">有项目释读</label>
+<button type="button" class="plainbtn" id="clear">重置</button>
+</div>
+<section id="reversePanel" aria-label="反向检索设置">
+<div class="exam-options"><label class="check"><input type="checkbox" id="fuzzySearch" checked>近似片段</label><label class="check"><input type="checkbox" id="includeExternal" checked>课外例证</label><label>考查角度 <select id="examCategory"><option value="">全部角度</option></select></label></div>
+<div class="query-examples"><span>试一试</span><button type="button" class="plainbtn" data-query="表推测语气的虚词">推测语气</button><button type="button" class="plainbtn" data-query="使动用法">使动用法</button><button type="button" class="plainbtn" data-query="我记得有一句先天下之优而忧">近似原句</button></div>
+<div id="queryInterpretation"></div>
+</section>
+<div class="result-actions"><span id="status" role="status"></span><button type="button" class="plainbtn" id="exportResults">导出搜索结果 TXT</button><span id="exportMessage" role="status"></span></div>
+</section>
+<main><nav id="list" aria-label="匹配篇目"></nav><article aria-labelledby="title"><h2 id="title"></h2><div id="meta"></div>
+<section id="matchedExamples" aria-label="本篇匹配依据" hidden></section>
+<p id="scope" hidden>点击正文中带虚线的字词，查看项目释读。</p>
+<div id="text" class="readtext"></div><details id="annotationsDetails" hidden><summary id="annotationsSummary"></summary><ol id="notesList" class="note-list"></ol></details>
+<p id="sourceDetails"></p><div class="toolbar"><button type="button" class="plainbtn" id="copy">复制正文</button><button type="button" class="plainbtn" id="download">下载本篇 TXT</button><span id="message" role="status"></span></div></article></main>
+<section id="externalExamples" aria-label="课外例证"></section>
+<footer>项目释读与语法分析由本项目整理。篇目按教材册次索引，具体出处列于各篇。</footer>
+<dialog id="noteDialog" aria-labelledby="noteTitle"><div class="dialogbar"><span>项目释读</span><button type="button" class="close" id="closeNote">关闭</button></div><h3 id="noteTitle"></h3><div id="noteContent"></div><p id="noteSource"></p></dialog>
+<noscript>请启用浏览器的 JavaScript 以使用本地检索。</noscript>
+<script src="assets/knowledge.js?v=347d26235459"></script><script src="assets/exam-engine.js?v=05ab0ea5c4a0"></script><script src="assets/app.js?v=33dd8fa99e0c"></script>
+</body></html>
