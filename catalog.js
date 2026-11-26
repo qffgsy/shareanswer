@@ -99,5 +99,29 @@
     return items;
   }
 
-  window.ShareAnswerCatalog = { extract: extract, extractWater: extractWater, extractLaw: extractLaw, extractCivilization: extractCivilization, matches: matches };
+  function extractAirPollution(data) {
+    var subject = '大气污染控制工程';
+    return (Array.isArray(data) ? data : []).filter(function (question) {
+      return question && question.id && (question.title || question.prompt);
+    }).map(function (question) {
+      return {
+        id: question.id,
+        source: 'air-pollution',
+        subject: subject,
+        type: /^(fill|choice|short|calculation|judge|term|essay|coursework)$/.test(question.type) ? question.type : 'coursework',
+        number: typeof question.number === 'number' ? '第 ' + question.number + ' 题' : clean(question.number),
+        title: clean(question.title || question.prompt),
+        search: clean([subject, question.chapter, question.title, question.prompt, question.answer, question.keywords].join(' '))
+      };
+    });
+  }
+
+  window.ShareAnswerCatalog = {
+    extract: extract,
+    extractWater: extractWater,
+    extractLaw: extractLaw,
+    extractCivilization: extractCivilization,
+    extractAirPollution: extractAirPollution,
+    matches: matches
+  };
 }());

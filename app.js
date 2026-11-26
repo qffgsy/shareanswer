@@ -12,11 +12,22 @@
   var waterItems = window.ShareAnswerCatalog.extractWater(window.WATER_QUIZ_DATA);
   var electricalItems = [];
   var lawItems = window.ShareAnswerCatalog.extractLaw();
-  var civilizationItems = [];
-  var civilizationFailed = false;
-  var items = waterItems.concat(lawItems);
+  var courseItems = { civilization: [], airPollution: [] };
+  var courseLoadFailed = false;
+  var questionPaths = {
+    electrical: 'electrical/',
+    'environmental-law': 'environmental-law/',
+    'intelligent-civilization': 'intelligent-civilization/',
+    'air-pollution': 'air-pollution/'
+  };
+  var items = [];
   var activeType = 'all';
-  field.value = new URLSearchParams(location.search).get('q') || '';
+  var searchParams = new URLSearchParams(location.search);
+  field.value = searchParams.get('q') || '';
+  var initialSource = searchParams.get('source');
+  if (Array.from(sourceFilter.options).some(function (option) { return option.value === initialSource; })) {
+    sourceFilter.value = initialSource;
+  }
   var loaded = false;
 
   function setType(type) {
@@ -51,7 +62,8 @@
         {source: 'physical', title: '物理化学法习题', href: 'water/?source=physical'},
         {source: 'electrical', title: '电工与电子技术', href: 'electrical/'},
         {source: 'environmental-law', title: '环境法律法规复习', href: 'environmental-law/'},
-        {source: 'intelligent-civilization', title: '智能文明题库', href: 'intelligent-civilization/'}
+        {source: 'intelligent-civilization', title: '智能文明题库', href: 'intelligent-civilization/'},
+        {source: 'air-pollution', title: '大气污染控制工程习题', href: 'air-pollution/'}
       ].filter(function (paper) {
         return (sourceFilter.value === 'all' || sourceFilter.value === paper.source) &&
           paper.title.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) !== -1;
@@ -70,7 +82,7 @@
     matching.forEach(function (item) {
       var link = document.createElement('a');
       link.className = 'result-card';
-      link.href = (item.source === 'electrical' ? 'electrical/#' : item.source === 'environmental-law' ? 'environmental-law/#' : item.source === 'intelligent-civilization' ? 'intelligent-civilization/#' : 'water/#') + encodeURIComponent(item.id);
+      link.href = (questionPaths[item.source] || 'water/') + '#' + encodeURIComponent(item.id);
       var meta = document.createElement('span');
       meta.className = 'result-meta';
       meta.textContent = item.subject + '  /  ' + labels[item.type] + '  /  ' + item.number;
@@ -89,8 +101,15 @@
     });
   }
 
+  function refreshCatalog() {
+    items = waterItems.concat(electricalItems, lawItems, courseItems.civilization, courseItems.airPollution);
+    loaded = !!items.length;
+    updateCounts();
+    render();
+  }
+
   function showError() {
-    if (!electricalItems.length || !waterItems.length || civilizationFailed) {
+    if (!electricalItems.length || !waterItems.length || courseLoadFailed) {
       error.hidden = false;
       if (!items.length) status.textContent = '题目索引暂不可用';
     }
@@ -102,10 +121,24 @@
       if (!doc || !doc.querySelector('#fill .quiz-card')) { showError(); return; }
       electricalItems = window.ShareAnswerCatalog.extract(doc).filter(function (item) { return item.id && item.title; });
       electricalItems.forEach(function (item) { item.source = 'electrical'; item.subject = '电工与电子技术'; });
-      items = waterItems.concat(electricalItems, lawItems, civilizationItems);
-      loaded = !!items.length; error.hidden = !!(electricalItems.length && waterItems.length && !civilizationFailed);
-      updateCounts(); render();
+      refreshCatalog();
+      error.hidden = !!(electricalItems.length && waterItems.length && !courseLoadFailed);
     } catch (exception) { showError(); }
+  }
+
+  function loadCourseQuestions(course, url, extract) {
+    fetch(url).then(function (response) {
+      if (!response.ok) throw new Error('题库读取失败');
+      return response.json();
+    }).then(function (data) {
+      var questions = extract(data);
+      if (!questions.length) throw new Error('题库为空');
+      courseItems[course] = questions;
+      refreshCatalog();
+    }).catch(function () {
+      courseLoadFailed = true;
+      showError();
+    });
   }
 
   field.addEventListener('input', render);
@@ -125,17 +158,9 @@
       document.getElementById('library').scrollIntoView({ behavior: 'smooth' });
     });
   });
-  fetch('intelligent-civilization/questions.json').then(function (response) {
-    if (!response.ok) throw new Error('题库读取失败');
-    return response.json();
-  }).then(function (data) {
-    civilizationItems = window.ShareAnswerCatalog.extractCivilization(data);
-    if (!civilizationItems.length) throw new Error('题库为空');
-    items = waterItems.concat(electricalItems, lawItems, civilizationItems);
-    loaded = !!items.length;
-    updateCounts(); render();
-  }).catch(function () { civilizationFailed = true; showError(); });
-  if (items.length) { loaded = true; updateCounts(); render(); }
+  loadCourseQuestions('civilization', 'intelligent-civilization/questions.json', window.ShareAnswerCatalog.extractCivilization);
+  loadCourseQuestions('airPollution', 'air-pollution/questions.json', window.ShareAnswerCatalog.extractAirPollution);
+  refreshCatalog();
   frame.addEventListener('load', loadCatalog);
   try {
     if (frame.contentDocument && frame.contentDocument.querySelector('#fill .quiz-card')) loadCatalog();
