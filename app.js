@@ -158,7 +158,7 @@
       document.getElementById('library').scrollIntoView({ behavior: 'smooth' });
     });
   });
-  loadCourseQuestions('civilization', 'intelligent-civilization/questions.json', window.ShareAnswerCatalog.extractCivilization);
+  loadCourseQuestions('civilization', 'intelligent-civilization/questions.json?v=materials-20261126', window.ShareAnswerCatalog.extractCivilization);
   loadCourseQuestions('airPollution', 'air-pollution/questions.json', window.ShareAnswerCatalog.extractAirPollution);
   refreshCatalog();
   frame.addEventListener('load', loadCatalog);

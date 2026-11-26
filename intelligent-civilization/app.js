@@ -21,11 +21,12 @@
   }
   function update() {
     var term = search.value.trim().toLocaleLowerCase();
-    var filtered = !!(term || chapterSelect.value || typeSelect.value);
+    var type = typeSelect.value;
+    var filtered = !!(term || chapterSelect.value || type);
     var matches = 0;
     cards.forEach(function (entry) {
-      var visible = (!chapterSelect.value || entry.chapter === chapterSelect.value) &&
-        (!typeSelect.value || entry.type === typeSelect.value) &&
+      var matchesType = !type || (type === 'objective' ? entry.type !== '简答题' : entry.type === type);
+      var visible = (!chapterSelect.value || entry.chapter === chapterSelect.value) && matchesType &&
         (!term || entry.search.indexOf(term) !== -1);
       entry.node.hidden = !visible;
       if (visible) matches++;
@@ -58,10 +59,11 @@
     var raw = String(question.answer || '').trim().toUpperCase();
     var answer = isJudge ? (raw === '对' || raw === '错' ? [raw] : []) :
       (/^[A-Z]+$/.test(raw) ? raw.split('') : []);
-    var valid = answer.length > 0 && new Set(answer).size === answer.length &&
+    var valid = !question.answerConflict && answer.length > 0 && new Set(answer).size === answer.length &&
       answer.every(function (value) { return options.some(function (opt) { return opt.label === value; }); }) &&
       (isMultiple ? answer.length > 1 : answer.length === 1);
     var group = element('fieldset', undefined, 'exercise');
+    group.setAttribute('aria-labelledby', card.id + '-stem');
     group.appendChild(element('legend', isMultiple ? '请选择所有正确选项' : '请选择一个选项'));
     var choices = element('div', undefined, 'choices');
     options.forEach(function (opt) {
@@ -110,14 +112,15 @@
       reset.hidden = false;
       if (!valid) {
         feedback.classList.add('review');
-        feedback.appendChild(element('strong', '原记录无法自动判定，请结合课程资料核对。'));
+        var message = question.answerConflict ? '两份资料的答案有出入，请核对原记录。' :
+          question.answer ? '原记录无法自动判定，请结合课程资料核对。' : '资料未附答案，本题暂不判分。';
+        feedback.appendChild(element('strong', message));
       } else {
         var correct = selected.length === answer.length && selected.every(function (value) { return answer.indexOf(value) !== -1; });
         feedback.classList.add(correct ? 'correct' : 'incorrect');
-        feedback.appendChild(element('strong', correct ? '与历史记录一致' : '与历史记录不一致'));
+        feedback.appendChild(element('strong', correct ? '与资料答案一致' : '与资料答案不一致'));
       }
-      feedback.appendChild(element('p', '历史原记录：' + (question.answer || '无')));
-      if (question.note) feedback.appendChild(element('p', '辨析：' + question.note, 'feedback-note'));
+      addAnswerText(feedback, question);
     }
     choices.addEventListener('change', function () {
       if (isMultiple) clearFeedback();
@@ -130,7 +133,23 @@
     });
     card.appendChild(group);
   }
-  fetch('questions.json').then(function (response) {
+  function addAnswerText(container, question) {
+    if (question.answer) {
+      var title = question.type === '简答题' ? '参考作答' : (question.source ? '补充资料答案' : '历史原记录');
+      container.append(element('p', title, 'answer-label'), element('div', question.answer, 'answer-text'));
+    } else if (question.type === '简答题' || container.tagName === 'DETAILS') {
+      container.appendChild(element('p', '资料未附参考答案。'));
+    }
+    if (question.answerConflict) {
+      container.append(element('p', '历史原记录', 'answer-label'), element('div', question.answerConflict, 'answer-text'));
+    }
+    if (question.note) container.appendChild(element('p', question.note, 'note feedback-note'));
+  }
+  var initialType = new URLSearchParams(location.search).get('type');
+  if (initialType === 'short') typeSelect.value = '简答题';
+  if (initialType === 'objective') typeSelect.value = 'objective';
+
+  fetch('questions.json?v=materials-20261126').then(function (response) {
     if (!response.ok) throw new Error('题库加载失败');
     return response.json();
   }).then(function (data) {
@@ -154,16 +173,20 @@
         section.questions.forEach(function (question) {
           var card = element('article', undefined, 'card');
           card.id = 'question-' + section.id.replace(/\./g, '-') + '-' + question.number;
-          card.append(element('div', section.id + ' · 第 ' + question.number + ' 题 · ' + question.type, 'tag'), element('p', question.stem, 'stem'));
-          addExercise(card, question);
+          var stem = element('p', question.stem, 'stem');
+          stem.id = card.id + '-stem';
+          card.append(element('div', section.id + ' · 第 ' + question.number + ' 题 · ' + question.type, 'tag'), stem);
+          if (question.type !== '简答题') addExercise(card, question);
           var details = element('details');
-          details.append(element('summary', '查看原记录与辨析'), element('p', '原记录：' + question.answer, 'answer'));
-          if (question.note) details.appendChild(element('p', '辨析：' + question.note, 'note'));
+          details.appendChild(element('summary', question.type === '简答题' ? '查看参考作答' : '查看答案与辨析'));
+          addAnswerText(details, question);
+          if (question.source) details.appendChild(element('p', '来源：《' + question.source + '》', 'question-source'));
           card.appendChild(details);
           sectionNode.appendChild(card);
           sectionCards.push(card);
           cards.push({node: card, chapter: chNo, type: question.type,
-            search: [chapter.title, section.id, section.title, section.summary, question.stem, question.answer, question.note,
+            search: [chapter.title, section.id, section.title, section.summary, question.type, question.stem, question.answer,
+              question.answerConflict, question.note,
               (question.options || []).map(function (opt) { return opt.text; }).join(' ')].join(' ').toLocaleLowerCase()});
         });
         sections.push({node: sectionNode, chapter: chNo, cards: sectionCards});
@@ -171,6 +194,9 @@
       });
       content.appendChild(chapterNode);
     });
+    var objectiveCount = cards.filter(function (entry) { return entry.type !== '简答题'; }).length;
+    document.getElementById('objective-count').textContent = objectiveCount;
+    document.getElementById('short-count').textContent = cards.length - objectiveCount;
     update();
     showTarget();
   }).catch(function () { status.textContent = '题库加载失败，请刷新页面后重试。'; });
